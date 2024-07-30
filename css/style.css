@@ -1,0 +1,29 @@
+body {
+  background-color: #f0f4f1
+}
+
+h2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.card-header img {
+  width: 2.5rem;
+}
+
+.card footer p {
+  margin: 0;
+}
+
+.card footer button {
+  border: none;
+  background-color: transparent;
+}
+
+.card time {
+  font-size: 0.9rem;
+}
