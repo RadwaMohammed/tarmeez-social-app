@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <!-- Import bootstrap -->
+  <!-- Import bootstrap css -->
    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/style.css">
-
-  <!-- Import bootstrap -->
+  <!-- Import bootstrap scripts -->
    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+   <!-- Import axios -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
 </head>
 <body class="container">
   <header class="row justify-content-center">
 
-    <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-9 pb-2">
+    <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2">
       <div class="container-fluid">
         <div>
           <a class="navbar-brand fw-bold text-success" href="#">Tarmees</a>
@@ -43,7 +44,7 @@
 
   <main class="row justify-content-center mt-4">
     <!-- ****** Posts ****** -->
-    <div class="posts col-9">
+    <div id="posts" class="col-lg-9">
       <article class="card my-4 shadow-sm">
         <header>
           <h2 class="card-header d-flex align-items-center gap-2">
@@ -59,13 +60,26 @@
               <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit provident facilis perspiciatis nam voluptatum. Optio officiis impedit a animi et autem modi tenetur perferendis odit, rem consectetur asperiores eligendi maxime.</p>
             </figcaption>
           </figure>
-          <footer class="border-top d-flex align-items-center pt-2 gap-1">
+          <footer class="border-top pt-2 gap-1">
+          <div class="comments d-flex align-items-center ">
             <button class="d-block text-body-secondary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-              <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-            </svg>
-          </button>
-          <p class="text-body-secondary fw-medium">(3) Comments</p>
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg>
+            </button>
+             <p class="text-body-secondary fw-medium">(3) Comments</p>
+          </div>
+          <ul class="tags nav gap-1">
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+          </ul>
           </footer>
         </div>
       </article>
@@ -84,13 +98,26 @@
               <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit provident facilis perspiciatis nam voluptatum. Optio officiis impedit a animi et autem modi tenetur perferendis odit, rem consectetur asperiores eligendi maxime.</p>
             </figcaption>
           </figure>
-          <footer class="border-top d-flex align-items-center pt-2 gap-1">
+          <footer class="border-top pt-2 gap-1">
+          <div class="comments d-flex align-items-center ">
             <button class="d-block text-body-secondary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-              <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-            </svg>
-          </button>
-          <p class="text-body-secondary fw-medium">(3) Comments</p>
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg>
+            </button>
+             <p class="text-body-secondary fw-medium">(3) Comments</p>
+          </div>
+          <ul class="tags nav gap-1">
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+          </ul>
           </footer>
         </div>
       </article>
@@ -109,17 +136,32 @@
               <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit provident facilis perspiciatis nam voluptatum. Optio officiis impedit a animi et autem modi tenetur perferendis odit, rem consectetur asperiores eligendi maxime.</p>
             </figcaption>
           </figure>
-          <footer class="border-top d-flex align-items-center pt-2 gap-1">
+          <footer class="border-top pt-2 gap-1">
+          <div class="comments d-flex align-items-center ">
             <button class="d-block text-body-secondary">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-              <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-            </svg>
-          </button>
-          <p class="text-body-secondary fw-medium">(3) Comments</p>
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+              </svg>
+            </button>
+             <p class="text-body-secondary fw-medium">(3) Comments</p>
+          </div>
+          <ul class="tags nav gap-1">
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+            <li>
+              <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+            </li>
+          </ul>
           </footer>
         </div>
       </article>
     </div>
   </main>
+
+  <script src="./js/main.js"></script>
 </body>
 </html>

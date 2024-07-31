@@ -13,6 +13,9 @@ h3 {
 
 .card-header img {
   width: 2.5rem;
+  height: 2.5rem;
+  display: block;
+  max-width: 100%;
 }
 
 .card footer p {
@@ -26,4 +29,43 @@ h3 {
 
 .card time {
   font-size: 0.9rem;
+}
+
+.card .card-body footer {
+  display: flex;
+  align-items: center;
+}
+
+.tags {
+  margin-left: 0.85rem;
+}
+
+.tags button {
+  font-size: 0.81rem;
+  font-weight: 600;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  opacity: 0.5;
+}
+
+.tags button:hover, 
+.tags button:focus {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .tags {
+    order: -1;
+    margin-left: 0;
+    margin-block: 0.5rem;
+  }
+
+  .card .card-body footer {
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+  }
 }
