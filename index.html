@@ -5,39 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <!-- Import bootstrap css -->
-   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <!-- Import bootstrap scripts -->
-   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-   <!-- Import axios -->
-    <script src="./node_modules/axios/dist/axios.min.js"></script>
+  <script defer src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- Import axios -->
+  <script src="./node_modules/axios/dist/axios.min.js"></script>
 </head>
 <body class="container">
-  <header class="row justify-content-center">
-
+  <div id="alert" class="d-flex fade show"></div>
+  <header class="row justify-content-center d-flex">
     <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2">
       <div class="container-fluid">
-        <div>
+        <div class="d-flex">
           <a class="navbar-brand fw-bold text-success" href="#">Tarmees</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          <div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Profile</a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-          </ul>
-        </div>
-        <div class="d-flex gap-2">
-          <button type="button" class="btn btn-outline-success">Login</button>
-          <button type="button" class="btn btn-outline-success">Register</button>
-        </div>
+      </div>
+      <div class="d-flex gap-2 mx-2 user-log">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal" id="login">Login</button>
+        <button type="button" class="btn btn-outline-success" id="register">Register</button>
+        <!-- For logged user -->
+        <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
       </div>
     </nav>
   </header>
@@ -45,7 +48,7 @@
   <main class="row justify-content-center mt-4">
     <!-- ****** Posts ****** -->
     <div id="posts" class="col-lg-9">
-      <article class="card my-4 shadow-sm">
+      <!-- <article class="card my-4 shadow-sm">
         <header>
           <h2 class="card-header d-flex align-items-center gap-2">
             <img src="./images/profile/name.png" alt="Yarhmm" class="border border-1 rounded-circle"> @Yarhmm
@@ -158,10 +161,49 @@
           </ul>
           </footer>
         </div>
-      </article>
+      </article> -->
     </div>
   </main>
 
+  <!-- Login Modal  -->
+  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-body-tertiary">
+          <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Login</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="username" class="col-form-label">Username:</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control is-invalid" id="username" tabindex="0">
+              </div>
+              <div class="invalid-feedback">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="col-form-label">Password:</label>
+              <input type="password"  class="form-control" id="password" tabindex="0">
+            </div>
+            <div class="invalid-feedback">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p id="invalid" class="text-danger"></p>
+          <div class="d-flex gap-2">
+            
+            <button type="button" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="./js/main.js"></script>
 </body>
 </html>

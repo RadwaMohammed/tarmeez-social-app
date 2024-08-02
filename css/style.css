@@ -1,5 +1,6 @@
 body {
-  background-color: #f0f4f1
+  background-color: #f0f4f1;
+
 }
 
 h2 {
@@ -16,6 +17,13 @@ h3 {
   height: 2.5rem;
   display: block;
   max-width: 100%;
+}
+
+
+.card-header .bi {
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: #bbb;
 }
 
 .card footer p {
@@ -68,4 +76,57 @@ h3 {
     align-items: start;
     justify-content: start;
   }
+}
+
+.navbar {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+/* Login modal */
+.modal-footer {
+  justify-content: space-between;
+}
+
+.form-control:focus, 
+.btn-close:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 .25rem rgba(25, 135, 84, 0.25)
+}
+
+.navbar-toggler:focus, 
+.navbar-toggler:hover {
+  box-shadow: none;
+  border: 1px solid #198754;
+}
+
+.hide-me {
+  display: none;
+}
+
+.show-me {
+  display: block;
+}
+
+#alert {
+  position: fixed;
+  z-index: 1000000;
+  max-width: fit-content;
+  bottom: 1%;
+  left: 1%;
+}
+
+.bi {
+  width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
+  fill: currentcolor;
+}
+
+.modal-footer button {
+  padding-inline: 2em;
+}
+
+.modal-footer button:last-of-type {
+  order: -1
 }
