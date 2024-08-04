@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #f0f4f1;
 
@@ -129,4 +133,21 @@ h3 {
 
 .modal-footer button:last-of-type {
   order: -1
+}
+
+#add-btn {
+  position: fixed;
+  bottom: 5vh;
+  right: 1vw;
+  line-height: 2rem;
+  padding-bottom: 0.3em;
+}
+
+#add-btn:hover {
+  opacity: 0.9;
+}
+
+#post-body {
+  resize: none;
+  min-height: 9rem;
 }

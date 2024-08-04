@@ -13,7 +13,7 @@
   <script src="./node_modules/axios/dist/axios.min.js"></script>
 </head>
 <body class="container">
-  <div id="alert" class="d-flex fade show"></div>
+
   <header class="row justify-content-center d-flex">
     <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2">
       <div class="container-fluid">
@@ -206,11 +206,11 @@
   </div>
 
     <!-- Register Modal  -->
-    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-body-tertiary">
-            <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Register</h1>
+            <h1 class="modal-title fs-5 text-success" id="registerModalLabel">Register</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
           </div>
           <div class="modal-body">
@@ -260,6 +260,58 @@
         </div>
       </div>
     </div>
+
+        <!-- Create new post Modal  -->
+        <div class="modal fade" id="add-post-modal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-body-tertiary">
+                <h1 class="modal-title fs-5 text-success" id="addPostModalLabel">Add new post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0">
+                    </div>
+                    <div class="invalid-feedback">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="post-img" class="form-label">Upload an image</label>
+                    <input class="form-control" type="file" id="post-img" accept="image/*">
+                  </div>
+                  <div class="mb-3">
+                    <div class="input-group mb-3">
+                      <textarea class="form-control" placeholder="Add a post..." id="post-body" tabindex="0"></textarea>
+                    </div>
+                    <div class="invalid-feedback">
+                    </div>
+                  </div>
+
+                  <div class="invalid-feedback">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <p id="invalid" class="text-danger"></p>
+                <div class="d-flex gap-2">
+                  
+                  <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+                </div>
+      
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- Alert Contianer -->
+    <div id="alert" class="d-flex fade show"></div>
+
+    <!-- Add Post btn -->
+    <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow" id="add-btn" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
   <script src="./js/main.js"></script>
 </body>
 </html>
