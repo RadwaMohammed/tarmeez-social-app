@@ -38,7 +38,7 @@
       </div>
       <div class="d-flex gap-2 mx-2 user-log">
         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal" id="login">Login</button>
-        <button type="button" class="btn btn-outline-success" id="register">Register</button>
+        <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#register-modal" id="register">Register</button>
         <!-- For logged user -->
         <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
       </div>
@@ -204,6 +204,62 @@
       </div>
     </div>
   </div>
+
+    <!-- Register Modal  -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-body-tertiary">
+            <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Register</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="name" class="col-form-label">Name:</label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="name" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="r-username" class="col-form-label">Username:</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">@</span>
+                  <input type="text" class="form-control" id="r-username" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="col-form-label">Email:</label>
+                <div class="input-group mb-3">
+                  <input type="email" class="form-control" id="email" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="r-password" class="col-form-label">Password:</label>
+                <input type="password"  class="form-control" id="r-password" tabindex="0">
+              </div>
+              <div class="invalid-feedback">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p id="invalid" class="text-danger"></p>
+            <div class="d-flex gap-2">
+              
+              <button type="button" class="btn btn-success" id="register-btn" tabindex="0">Register</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
   <script src="./js/main.js"></script>
 </body>
 </html>
