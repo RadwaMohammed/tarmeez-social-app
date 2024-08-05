@@ -1,4 +1,6 @@
 const baseUrl = 'https://tarmeezacademy.com/api/v1';
+let currentPage = 1;
+let lastPage = 1;
 // login modal
 const loginBtn = document.getElementById('login-btn');
 const username = document.getElementById('username');
@@ -103,11 +105,12 @@ const showAlert = (message, type) => {
 }
 // =============== get posts ============
 // ======================================
-const getPosts = () => {
-  axios.get(`${baseUrl}/posts`).then(response => {
+const getPosts = (reload = true, page = 1) => {
+  axios.get(`${baseUrl}/posts?page=${page}`).then(response => {
     const posts = response.data.data;
+    lastPage = response.data.meta.last_page;
+
     const postsContainer = document.getElementById('posts');
-  
     const getTags = tags => {
       let content = '';
       for (let tag of tags) {
@@ -118,8 +121,9 @@ const getPosts = () => {
       }
       return content;
     };
-    postsContainer.innerHTML = '';
-  
+    if (reload) {
+      postsContainer.innerHTML = ''
+    }
     for(let post of posts) {
       const userImg = `<img src="${post.author.profile_image}" alt="${post.author.name}" class="border border-1 rounded-circle">`;
       const content = `
@@ -281,6 +285,14 @@ addPostBtn.addEventListener('click', () => {
 });
 
 
-
+// =============== Posts Pagination ============
+// ======================================
+window.addEventListener('scroll', () => {
+  const isPageEnd = window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight;
+  if (isPageEnd && currentPage < lastPage) {
+    currentPage++;
+    getPosts(false, currentPage);
+  }
+});
 
 getPosts();
