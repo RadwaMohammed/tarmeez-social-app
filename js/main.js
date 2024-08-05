@@ -10,11 +10,14 @@ const rUsername = document.getElementById('r-username');
 const rPassword = document.getElementById('r-password');
 const rName = document.getElementById('name');
 const email = document.getElementById('email');
+const registerImg = document.getElementById('register-img');
 const registerModal = document.getElementById('register-modal');
 
 const invalid = document.getElementById('invalid');
 // logout btn
 const logoutBtn = document.getElementById('logout');
+const logoutContainer = document.getElementById('logout-container');
+
 // alert container
 const alertPlaceholder = document.getElementById('alert');
 // add post btn to open the modal
@@ -24,7 +27,6 @@ const addPostModal = document.getElementById('add-post-modal');
 const postBody = document.getElementById('post-body');
 const postTitle = document.getElementById('post-title');
 const postImg = document.getElementById('post-img');
-console.log(postImg.files[0])
 // add post btn
 const addPostBtn = document.getElementById('add-post-btn');
 
@@ -43,17 +45,24 @@ const hideModal = modal => {
 // ======================================
 const setUpLogUI = () => {
   const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userLink = document.querySelector('#logout-container a');
+
   const loginBtn = document.getElementById('login');
   const registerBtn = document.getElementById('register');
+
   if (token) {
+    userLink.innerHTML = `
+      ${ typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.name}" title="${user.name}">` : defaultUserImg }
+      <strong>${user.username}</strong>`;
     loginBtn.classList.add('hide-me');
     registerBtn.classList.add('hide-me');
-    logoutBtn.classList.remove('hide-me');
+    logoutContainer.classList.remove('hide-me');
     addtBtn.classList.remove('hide-me');
   } else {
     loginBtn.classList.remove('hide-me');
     registerBtn.classList.remove('hide-me');
-    logoutBtn.classList.add('hide-me');
+    logoutContainer.classList.add('hide-me');
     addtBtn.classList.add('hide-me');
   }
 }
@@ -194,6 +203,7 @@ rUsername.addEventListener('input', () => {
   rUsername.value = rUsername.value.trim();
   console.log(rUsername.value)
 })
+
 rPassword.addEventListener('input', () => {
   isAllowRegiter();
   rPassword.value = rPassword.value.trim();
@@ -208,15 +218,17 @@ email.addEventListener('input', () => {
 })
 
 registerBtn.addEventListener('click', () => {
-  const params = {
-    'username': rUsername.value,
-    'password': rPassword.value,
-    'name': rName.value.replace(/\s+/g, ' ').trim(),
-    'email': email.value
-  };
-
-  axios.post(`${baseUrl}/register`, params)
-  .then(response => {
+  const formData = new FormData();
+  formData.append('username', rUsername.value);
+  formData.append('password', rPassword.value);
+  formData.append('name', rName.value.replace(/\s+/g, ' ').trim());
+  formData.append('email', email.value);
+  formData.append('image', registerImg.files[0]);
+  axios.post(`${baseUrl}/register`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then(response => {
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.user));
     hideModal(registerModal);

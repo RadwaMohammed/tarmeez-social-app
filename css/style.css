@@ -104,9 +104,7 @@ h3 {
   border: 1px solid #198754;
 }
 
-.hide-me {
-  display: none;
-}
+
 
 .show-me {
   display: block;
@@ -118,6 +116,12 @@ h3 {
   max-width: fit-content;
   bottom: 1%;
   left: 1%;
+}
+
+.logout .bi {
+  width: 2.3rem;
+  height: 2.3rem;
+  fill: #bbb;
 }
 
 .bi {
@@ -140,7 +144,8 @@ h3 {
   bottom: 5vh;
   right: 1vw;
   line-height: 2rem;
-  padding-bottom: 0.3em;
+  padding-bottom: 0.4em;
+  padding-inline: 0.4em;
 }
 
 #add-btn:hover {
@@ -150,4 +155,53 @@ h3 {
 #post-body {
   resize: none;
   min-height: 9rem;
+}
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.logout img {
+  display: block;
+  max-width: 100%;
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.logout a {
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #555;
+  gap: 0.3rem;
+  padding: 0.2em 0.7em;
+  border-radius: 30rem;
+  -webkit-border-radius: 30rem;
+  -moz-border-radius: 30rem;
+  -ms-border-radius: 30rem;
+  -o-border-radius: 30rem;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.logout a:hover, 
+.logout a:focus {
+  background-color: #eaf0eb;
+}
+
+
+
+.hide-me {
+  display: none;
 }
