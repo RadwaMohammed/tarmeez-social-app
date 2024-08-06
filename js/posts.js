@@ -1,5 +1,6 @@
 let currentPage = 1;
 let lastPage = 1;
+
 // Posts Container
 const postsContainer = document.getElementById('posts');
 // add post modal
@@ -41,11 +42,11 @@ const getPosts = (reload = true, page = 1) => {
       const content = `
         <article class="card my-4 shadow-sm">
         <header>
-          <h2 class="card-header d-flex align-items-center gap-2">
+          <h2 class="card-header d-flex align-items-center gap-2" title="${post.author.username}">
           ${post.author.profile_image && typeof post.author.profile_image === 'string'? userImg : defaultUserImg} ${post.author.username}
           </h2>
         </header>
-        <div class="card-body" onclick="goToPost(${post.id})">
+        <div class="card-body go-to-post" onclick="goToPost(${post.id})">
           <figure>
             ${typeof post.image === 'string' &&  post.image.length ? `<img src="${post.image}" alt="${post.title || ''}" class="img-fluid card-img-top">` : ''}
             <time class="text-body-tertiary fw-medium d-block mt-1">${post.created_at}</time>
