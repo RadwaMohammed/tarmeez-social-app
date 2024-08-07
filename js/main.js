@@ -19,6 +19,9 @@ const logoutBtn = document.getElementById('logout');
 const logoutContainer = document.getElementById('logout-container');
 // add post btn
 const addtBtn = document.getElementById('add-btn');
+// add comment form
+const addComment = document.getElementById('add-comment');
+const addCommentImg = document.querySelector('.add-comment-user-img');
 
 // alert container
 const alertPlaceholder = document.getElementById('alert');
@@ -45,7 +48,7 @@ const setUpLogUI = () => {
 
   const loginBtn = document.getElementById('login');
   const registerBtn = document.getElementById('register');
-
+console.log(addComment)
   if (token) {
     userLink.innerHTML = `
       ${ typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.name}" title="${user.name}">` : defaultUserImg }
@@ -54,11 +57,18 @@ const setUpLogUI = () => {
     registerBtn.classList.add('hide-me');
     logoutContainer.classList.remove('hide-me');
     addtBtn && addtBtn.classList.remove('hide-me');
+    if (addComment) {
+      addComment.classList.remove('hide-me');
+      addCommentImg.setAttribute('title', `${user.username}`);
+      addCommentImg.innerHTML = `${typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.username}">` : defaultUserImg }`;
+    }
+
   } else {
     loginBtn.classList.remove('hide-me');
     registerBtn.classList.remove('hide-me');
     logoutContainer.classList.add('hide-me');
     addtBtn && addtBtn.classList.add('hide-me');
+    addComment && addComment.classList.add('hide-me');
   }
 }
 
