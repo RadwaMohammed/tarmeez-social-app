@@ -4,7 +4,6 @@ html {
 
 body {
   background-color: #f0f4f1;
-
 }
 
 h2 {
@@ -16,7 +15,13 @@ h3 {
   font-size: 1.5rem;
 }
 
-.card-header img {
+.comment{
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.card-header img, 
+.comment img {
   width: 2.5rem;
   height: 2.5rem;
   display: block;
@@ -24,7 +29,8 @@ h3 {
 }
 
 
-.card-header .bi {
+.card-header .bi, 
+.comment .bi {
   width: 2.5rem;
   height: 2.5rem;
   fill: #bbb;
@@ -43,7 +49,7 @@ h3 {
   font-size: 0.9rem;
 }
 
-.card .card-body footer {
+.card .card-body footer .wrapper {
   display: flex;
   align-items: center;
 }
@@ -68,6 +74,26 @@ h3 {
   opacity: 0.7;
 }
 
+.comments-container {
+  background-color: #f0f4f1;
+}
+
+.comments-container li + li {
+  border-top: 1px solid #ddd;
+  margin-top: 0.5rem;
+}
+.comments-container li:not(:first-child) h4 {
+  margin-top: 0.5rem;
+}
+
+.comments-container p {
+  background-color: #fff;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
 @media screen and (max-width: 768px) {
   .tags {
     order: -1;
@@ -75,7 +101,7 @@ h3 {
     margin-block: 0.5rem;
   }
 
-  .card .card-body footer {
+  .card .card-body footer .wrapper {
     flex-direction: column;
     align-items: start;
     justify-content: start;
@@ -184,16 +210,21 @@ h3 {
   color: #555;
   gap: 0.3rem;
   padding: 0.1em 0.7em;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
+}
+
+.logout a, 
+.comments p, 
+.comments button {
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+transition: all 0.3s ease;
+-webkit-transition: all 0.3s ease;
+-moz-transition: all 0.3s ease;
+-ms-transition: all 0.3s ease;
+-o-transition: all 0.3s ease;
 }
 
 .logout a:hover, 
@@ -207,6 +238,25 @@ h3 {
 
 .hide-me {
   display: none;
+}
+
+.comments button {
+  padding-top: .2em;
+}
+
+.comments p {
+  padding: 0.35em;
+}
+
+.comments button {
+  padding: 0.35em 0.35em 0.2em;
+}
+
+#posts .comments p:hover, 
+#posts .comments p:focus, 
+.comments button:hover, 
+.comments button:focus {
+  background-color: #f6f6f6;
 }
 
 /* ==============================
