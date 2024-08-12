@@ -135,7 +135,7 @@ loginBtn.addEventListener('click', () => {
     hideModal(loginModal);
     showAlert('Logged in successfully', 'success');
     setUpLogUI();
-  })
+  }).catch(e => showAlert(e.response.data.message, 'danger'))
 });
 
 

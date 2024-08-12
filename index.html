@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <!-- Import bootstrap scripts -->
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js" ></script>
     <script defer src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!-- Import axios -->
     <script src="./node_modules/axios/dist/axios.min.js"></script>
   </head>
@@ -190,7 +192,8 @@
                 <label for="username" class="col-form-label">Username:</label>
                 <div class="input-group mb-3">
                   <span class="input-group-text">@</span>
-                  <input type="text" class="form-control is-invalid" id="username" tabindex="0">
+                  <input type="text" class="form-control" id="username" tabindex="0">
+                  <!-- <input type="text" class="form-control is-invalid" id="username" tabindex="0"> -->
                 </div>
                 <div class="invalid-feedback">
                 </div>
@@ -228,7 +231,7 @@
             <form>
               <div class="mb-3">
                 <label for="register-img" class="col-form-label">Profile image:</label>
-                <input class="form-control" type="file" id="register-img" accept="image/*">
+                <input class="form-control" type="file" id="register-img" accept="image/png, image/jpeg, image/jpg">
               </div>
               <div class="mb-3">
                 <label for="name" class="col-form-label">Name:</label>
@@ -278,12 +281,12 @@
     </div>
 
       <!-- ----------------------------------------------------------------------
-      ----------------- Add New Post -----------------------------------------------
+      ----------------- Add New Post / Edit Post -----------------------------------------------
       ---------------------------------------------------------------------- -->
       <!-- Add Post btn -->
       <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow" id="add-btn" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
       <!-- Create new post Modal  -->
-      <div class="modal fade" id="add-post-modal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+      <div class="modal fade" id="add-post-modal" data-edit="false" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header bg-body-tertiary">
@@ -294,7 +297,14 @@
               <form>
                 <div class="mb-3">
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0">
+                    <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0" value="">
+                  </div>
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="input-group mb-3">
+                    <textarea class="form-control" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
                   </div>
                   <div class="invalid-feedback">
                   </div>
@@ -303,14 +313,6 @@
                   <label for="post-img" class="form-label">Upload an image</label>
                   <input class="form-control" type="file" id="post-img" accept="image/*">
                 </div>
-                <div class="mb-3">
-                  <div class="input-group mb-3">
-                    <textarea class="form-control" placeholder="Add a post..." id="post-body" tabindex="0"></textarea>
-                  </div>
-                  <div class="invalid-feedback">
-                  </div>
-                </div>
-
                 <div class="invalid-feedback">
                 </div>
               </form>
@@ -318,8 +320,9 @@
             <div class="modal-footer">
               <p id="invalid" class="text-danger"></p>
               <div class="d-flex gap-2">
-                
+                <input type="hidden" name="post-id" id="post-id-holder" value="">
                 <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>
+                <button type="button" class="btn btn-success hide-me" id="edit-post-btn" tabindex="0">Edit Post</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
               </div>
     
@@ -333,7 +336,9 @@
       ---------------------------------------------------------------------- -->
       <!-- Alert Contianer -->
       <div id="alert" class="d-flex fade show"></div>
-      
+      <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> -->
+
     <script src="./js/main.js"></script>
     <script src="./js/posts.js"></script>
   </body>

@@ -1,6 +1,5 @@
 let currentPage = 1;
 let lastPage = 1;
-
 // Posts Container
 const postsContainer = document.getElementById('posts');
 // add post modal
@@ -11,11 +10,34 @@ const postTitle = document.getElementById('post-title');
 const postImg = document.getElementById('post-img');
 // add post btn
 const addPostBtn = document.getElementById('add-post-btn');
+// Edit post btn
+const editPostBtn = document.getElementById('edit-post-btn');
+
+// =============== Toggle modal (edit / new) post ============
+// ======================================
+const toggleModalForms = (isEditPost, postObject = '') => {
+  document.getElementById('addPostModalLabel').innerHTML = `${isEditPost ? 'Edit' : 'Add new'} post`;
+  if (isEditPost) {
+    const post = JSON.parse(decodeURIComponent(postObject));
+    addPostBtn.classList.add('hide-me');
+    editPostBtn.classList.remove('hide-me');
+    postTitle.value = post.title;
+    postBody.value = post.body;
+  } else {
+    addPostBtn.classList.remove('hide-me');
+    editPostBtn.classList.add('hide-me');
+    postTitle.value = '';
+    postBody.value = '';
+    document.getElementById('post-img').value = '';
+  }
+}
+
+document.getElementById('add-btn').addEventListener('click', () => toggleModalForms(false));
 
 
 // =============== get posts ============
 // ======================================
-const goToPost = id => window.location = `/post-details.html?id=${id}`;
+const goToPost = id => window.location = `./post-details.html?id=${id}`;
 const getPosts = (reload = true, page = 1) => {
   
   axios.get(`${baseUrl}/posts?page=${page}`)
@@ -40,10 +62,33 @@ const getPosts = (reload = true, page = 1) => {
       const userImg = `<img src="${post.author.profile_image}" alt="${post.author.name}" class="border border-1 rounded-circle">`;
       const content = `
         <article class="card my-4 shadow-sm">
-        <header>
-          <h2 class="card-header d-flex align-items-center gap-2" title="${post.author.username}">
+        <header
+          <h2 class="card-header d-flex align-items-center gap-2">
           ${post.author.profile_image && typeof post.author.profile_image === 'string'? userImg : defaultUserImg} ${post.author.username}
+          <div class="dropdown">
+            <button class="post-user-control btn dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+              </svg>
+            </button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item text-success" title="Edit" onclick="editPost('${encodeURIComponent(JSON.stringify(post))}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                </svg> Edit
+              </button></li>
+              <li><button class="dropdown-item text-danger" title="Delete">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                </svg> Delete
+              </button></li>
+            </ul>
+          </div>
+          
           </h2>
+
         </header>
         <div class="card-body go-to-post" onclick="goToPost(${post.id})">
           <figure>
@@ -58,8 +103,8 @@ const getPosts = (reload = true, page = 1) => {
             <div class="wrapper gap-1">
               <div class="comments d-flex align-items-center ">
                   <button class="d-flex text-body-secondary fw-medium align-items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                      <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+                      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
                     </svg>(${post.comments_count}) Comments
                   </button>
               </div>
@@ -71,7 +116,7 @@ const getPosts = (reload = true, page = 1) => {
       `;
       postsContainer.innerHTML += content;
     }
-  })
+  }).catch(e => showAlert(e.response.data.message, 'danger'))
 };
 
 // =============== Add post ============
@@ -115,3 +160,17 @@ window.addEventListener('scroll', () => {
 });
 
 getPosts();
+
+// =============== Edit post ============
+// ======================================
+const editPost = postObject => {
+  const editModal = new bootstrap.Modal(addPostModal, {});
+  toggleModalForms(true, postObject);
+  editModal.toggle()
+  editPostBtn.addEventListener('click', () => {
+    editModal.toggle()
+});
+}
+
+
+

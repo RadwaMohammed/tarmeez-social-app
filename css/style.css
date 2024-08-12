@@ -4,6 +4,7 @@ html {
 
 body {
   background-color: #f0f4f1;
+  
 }
 
 h2 {
@@ -246,9 +247,16 @@ transition: all 0.3s ease;
 .comments button {
   padding: .3em 0.5em;
 }
+.add-comment-user-img svg, 
+.logout svg, 
+h2 svg, 
+h4 svg {
+  background-color: #fff;
+}
 
-.comments button svg {
-  margin-top: 0.2rem;
+.comments button svg, 
+.comments p svg {
+  margin-top: 0.3rem;
 }
 
 .comments button:hover, 
@@ -288,4 +296,45 @@ transition: all 0.3s ease;
 .comment-form-group:has(.form-control:focus) .add-comment-user-img {
   border: 1px solid #198754;
   border-right-color: #ddd ;
+}
+
+.dropdown {
+  margin-left: auto;
+}
+
+.post-user-control .bi {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
+.dropdown-item .bi {
+  width: 1rem;
+  height: 1rem;
+}
+
+li:first-child .dropdown-item .bi{
+  fill: #198754;
+}
+
+li:last-of-type .dropdown-item .bi {
+  fill: #dc3545;
+}
+
+.post-user-control {
+  padding:  .5em 0.5em 0.4em;
+  border: none;
+}
+
+.post-user-control:hover, 
+.post-user-control:focus {
+  background-color: #f0f4f1
+
+}
+
+.dropdown-toggle::after {
+  color: #bbb;
+}
+.dropdown-item:focus {
+  background-color: #f0f4f1;
 }

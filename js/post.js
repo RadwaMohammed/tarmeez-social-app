@@ -57,8 +57,8 @@ const getPost = () => {
 
     userHeader.innerHTML = author.username;
     const userImg = `<img src="${author.profile_image}" alt="${author.name}" class="border border-1 rounded-circle">`;
-    const headerContent = `<h2 class="card-header d-flex align-items-center gap-2" title="${author.username}">
-      ${author.profile_image && typeof author.profile_image === 'string'? userImg : defaultUserImg} @${author.username}
+    const headerContent = `<h2 class="card-header d-flex align-items-center gap-2">
+      ${author.profile_image && typeof author.profile_image === 'string'? userImg : defaultUserImg}@${author.username}
       </h2>`;
       
     const figureContent = `${typeof image === 'string' &&  image.length ? `<img src="${image}" alt="${title || ''}" class="img-fluid card-img-top">` : ''}
@@ -71,9 +71,9 @@ const getPost = () => {
     const footerContent = `<div class="wrapper gap-1">
       <div class="comments d-flex align-items-center ">
         <p class="d-flex text-body-secondary fw-medium align-items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-          </svg>
+         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+          <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+        </svg>
           (${comments_count}) Comments
         </p>
       </div>
@@ -99,7 +99,8 @@ addCommentBtn.addEventListener('click', () => {
   }).then(() => {
     getPost();
     showAlert('New comment has been created successfully', 'success')
-  })
+
+  }).catch(e => showAlert(`${e.response.data.message}`, 'danger'))
 });
 
 getPost();
