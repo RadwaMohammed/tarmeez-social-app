@@ -18,10 +18,12 @@ const invalid = document.getElementById('invalid');
 const logoutBtn = document.getElementById('logout');
 const logoutContainer = document.getElementById('logout-container');
 // add post btn
-const addtBtn = document.getElementById('add-btn');
+const addtBtn = document.getElementById('add-btn-home');
 // add comment form
 const addComment = document.getElementById('add-comment');
 const addCommentImg = document.querySelector('.add-comment-user-img');
+// User post control
+const userPostControl = document.getElementsByClassName('post-control');
 
 // alert container
 const alertPlaceholder = document.getElementById('alert');
@@ -30,8 +32,22 @@ const defaultUserImg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#bbb" class="bi bi-person-fill border border-1 rounded-circle" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
 </svg>`;
+// addEventListener("load", () => console.log( userPostControl))
+console.log( userPostControl)
+addEventListener("DOMContentLoaded", (event) => {
+  console.log( userPostControl)
+});
+function doSomething() {
+  console.info("DOM loaded");
+}
 
-
+if (document.readyState === "loading") {
+  // Loading hasn't finished yet
+  document.addEventListener("DOMContentLoaded", () =>  console.log( userPostControl));
+} else {
+  // `DOMContentLoaded` has already fired
+  doSomething();
+}
 // =============== Hide Modal ============
 // =====================================
 const hideModal = modal => {
@@ -41,14 +57,19 @@ const hideModal = modal => {
 
 // =============== Build logging UI ============
 // ======================================
+const getCurrentUser = () => {
+  const storedUser = localStorage.getItem('user');
+  return storedUser ? JSON.parse(storedUser) : storedUser;
+};
+
 const setUpLogUI = () => {
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = getCurrentUser();
   const userLink = document.querySelector('#logout-container a');
 
   const loginBtn = document.getElementById('login');
   const registerBtn = document.getElementById('register');
-console.log(addComment)
+
   if (token) {
     userLink.innerHTML = `
       ${ typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.name}" title="${user.name}">` : defaultUserImg }
@@ -58,17 +79,30 @@ console.log(addComment)
     logoutContainer.classList.remove('hide-me');
     addtBtn && addtBtn.classList.remove('hide-me');
     if (addComment) {
+      addtBtn.classList.add('hide-me');
       addComment.classList.remove('hide-me');
       addCommentImg.setAttribute('title', `${user.username}`);
       addCommentImg.innerHTML = `${typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.username}">` : defaultUserImg }`;
     }
-
+    if (userPostControl.length) {
+      for( let x of userPostControl) {
+        let authorId = x.getAttribute('data-author');
+        +authorId === user.id ? x.classList.remove('hide-me') : x.classList.add('hide-me');
+        
+      }
+    }
   } else {
     loginBtn.classList.remove('hide-me');
     registerBtn.classList.remove('hide-me');
     logoutContainer.classList.add('hide-me');
     addtBtn && addtBtn.classList.add('hide-me');
     addComment && addComment.classList.add('hide-me');
+    if (userPostControl.length) {
+      for( let x of userPostControl) {
+
+        x.classList.add('hide-me');
+      }
+    }
   }
 }
 
@@ -135,6 +169,7 @@ loginBtn.addEventListener('click', () => {
     hideModal(loginModal);
     showAlert('Logged in successfully', 'success');
     setUpLogUI();
+    // document.location.reload(true)
   }).catch(e => showAlert(e.response.data.message, 'danger'))
 });
 
@@ -170,7 +205,10 @@ registerBtn.addEventListener('click', () => {
   formData.append('password', rPassword.value);
   formData.append('name', rName.value.replace(/\s+/g, ' ').trim());
   formData.append('email', email.value);
-  formData.append('image', registerImg.files[0]);
+  if (registerImg.files[0]) {
+    formData.append('image', registerImg.files[0]);
+  }
+
   axios.post(`${baseUrl}/register`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'

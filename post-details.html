@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <!-- Import bootstrap scripts -->
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js" ></script>
     <script defer src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Import axios -->
     <script src="./node_modules/axios/dist/axios.min.js"></script>
@@ -179,12 +180,68 @@
       </div>
     </div>
     
+
+    <!-- ----------------------------------------------------------------------
+    ----------------- Add New Post / Edit Post -----------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <!-- Add Post btn -->
+    <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow hide-me" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
+    <!-- Create new post Modal  -->
+    <div class="modal fade" id="add-post-modal" data-edit="false" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-body-tertiary">
+            <h1 class="modal-title fs-5 text-success" id="addPostModalLabel">Add new post</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0" value="">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="input-group mb-3">
+                  <textarea class="form-control" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="post-img" class="form-label">Upload an image</label>
+                <input class="form-control" type="file" id="post-img" accept="image/*">
+              </div>
+              <div class="invalid-feedback">
+              </div>
+              <input type="hidden" id="post-id-holder" value="">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p id="invalid" class="text-danger"></p>
+            <div class="d-flex gap-2">
+              <input type="hidden" name="post-id" id="post-id-holder" value="">
+              <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>
+              <button type="button" class="btn btn-success hide-me" id="edit-post-btn" tabindex="0">Edit Post</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- ----------------------------------------------------------------------
     ----------------- Alerts -----------------------------------------------
     ---------------------------------------------------------------------- -->
     <!-- Alert Contianer -->
     <div id="alert" class="d-flex fade show"></div>
     <script src="./js/main.js"></script>
+
+
     <script src="./js/post.js"></script>
+    <script src="./js/post-control.js"></script>
+
   </body>
 </html>

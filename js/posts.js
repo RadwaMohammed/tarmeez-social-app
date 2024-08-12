@@ -2,38 +2,6 @@ let currentPage = 1;
 let lastPage = 1;
 // Posts Container
 const postsContainer = document.getElementById('posts');
-// add post modal
-const addPostModal = document.getElementById('add-post-modal');
-// add-post-body
-const postBody = document.getElementById('post-body');
-const postTitle = document.getElementById('post-title');
-const postImg = document.getElementById('post-img');
-// add post btn
-const addPostBtn = document.getElementById('add-post-btn');
-// Edit post btn
-const editPostBtn = document.getElementById('edit-post-btn');
-
-// =============== Toggle modal (edit / new) post ============
-// ======================================
-const toggleModalForms = (isEditPost, postObject = '') => {
-  document.getElementById('addPostModalLabel').innerHTML = `${isEditPost ? 'Edit' : 'Add new'} post`;
-  if (isEditPost) {
-    const post = JSON.parse(decodeURIComponent(postObject));
-    addPostBtn.classList.add('hide-me');
-    editPostBtn.classList.remove('hide-me');
-    postTitle.value = post.title;
-    postBody.value = post.body;
-  } else {
-    addPostBtn.classList.remove('hide-me');
-    editPostBtn.classList.add('hide-me');
-    postTitle.value = '';
-    postBody.value = '';
-    document.getElementById('post-img').value = '';
-  }
-}
-
-document.getElementById('add-btn').addEventListener('click', () => toggleModalForms(false));
-
 
 // =============== get posts ============
 // ======================================
@@ -58,21 +26,22 @@ const getPosts = (reload = true, page = 1) => {
     if (reload) {
       postsContainer.innerHTML = ''
     }
+    let user = getCurrentUser();
     for(let post of posts) {
       const userImg = `<img src="${post.author.profile_image}" alt="${post.author.name}" class="border border-1 rounded-circle">`;
       const content = `
         <article class="card my-4 shadow-sm">
-        <header
+        <header>
           <h2 class="card-header d-flex align-items-center gap-2">
           ${post.author.profile_image && typeof post.author.profile_image === 'string'? userImg : defaultUserImg} ${post.author.username}
-          <div class="dropdown">
+          <div class="${user && user.id === post.author.id ? 'dropdown' : 'dropdown hide-me'} post-control" data-author="${post.author.id}">
             <button class="post-user-control btn dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
               </svg>
             </button>
             <ul class="dropdown-menu">
-              <li><button class="dropdown-item text-success" title="Edit" onclick="editPost('${encodeURIComponent(JSON.stringify(post))}')">
+              <li><button class="dropdown-item text-success mb-1" title="Edit" onclick="editPost('${encodeURIComponent(JSON.stringify(post))}')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -86,9 +55,7 @@ const getPosts = (reload = true, page = 1) => {
               </button></li>
             </ul>
           </div>
-          
           </h2>
-
         </header>
         <div class="card-body go-to-post" onclick="goToPost(${post.id})">
           <figure>
@@ -119,36 +86,6 @@ const getPosts = (reload = true, page = 1) => {
   }).catch(e => showAlert(e.response.data.message, 'danger'))
 };
 
-// =============== Add post ============
-// ======================================
-addPostBtn.disabled = isNotEmpty(postBody);
-postBody.addEventListener('input', () => addPostBtn.disabled = isNotEmpty(postBody))
-addPostBtn.addEventListener('click', () => {
-  const formData = new FormData();
-  formData.append('title', postTitle.value.trim());
-  formData.append('body', postBody.value.trim());
-  formData.append('image', postImg.files[0]);
-  axios.post(`${baseUrl}/posts`, formData, {
-    headers: {
-      'authorization': `Bearer ${localStorage.getItem('token')}`,
-      'Content-Type': 'multipart/form-data'
-    }
-  })
-  .then(response => {
-    getPosts()
-
-
-    hideModal(addPostModal);
-  
-    window.scrollTo({
-      top: 0, 
-      behavior: 'smooth'
-    });
-
-    showAlert('New post has been created successfully', 'success');
-  }).catch(e => showAlert(e.response.data.message, 'danger'))
-});
-
 // =============== Posts Pagination ============
 // ======================================
 window.addEventListener('scroll', () => {
@@ -160,17 +97,3 @@ window.addEventListener('scroll', () => {
 });
 
 getPosts();
-
-// =============== Edit post ============
-// ======================================
-const editPost = postObject => {
-  const editModal = new bootstrap.Modal(addPostModal, {});
-  toggleModalForms(true, postObject);
-  editModal.toggle()
-  editPostBtn.addEventListener('click', () => {
-    editModal.toggle()
-});
-}
-
-
-

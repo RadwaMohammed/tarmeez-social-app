@@ -80,7 +80,7 @@ h3 {
 }
 
 .comments-container li + li {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #ccc;
   margin-top: 0.5rem;
 }
 .comments-container li:not(:first-child) h4 {
@@ -88,7 +88,7 @@ h3 {
 }
 
 .comments-container p {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.75);
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -167,7 +167,7 @@ h3 {
   order: -1
 }
 
-#add-btn {
+#add-btn-home {
   position: fixed;
   bottom: 5vh;
   right: 1vw;
@@ -178,8 +178,8 @@ h3 {
 
 .comment-form-group .btn:hover, 
 .comment-form-group .btn:focus, 
-#add-btn:hover, 
-#add-btn:focus {
+#add-btn-home:hover, 
+#add-btn-home:focus {
   opacity: 0.9;
 }
 #post-body {
@@ -337,4 +337,8 @@ li:last-of-type .dropdown-item .bi {
 }
 .dropdown-item:focus {
   background-color: #f0f4f1;
+}
+
+.post-user-control > svg {
+  background-color: transparent;
 }
