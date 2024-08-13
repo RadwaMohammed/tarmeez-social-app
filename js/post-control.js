@@ -12,6 +12,8 @@ const editPostBtn = document.getElementById('edit-post-btn');
 const postIdHolder = document.getElementById('post-id-holder');
 
 const postsWrapper = document.getElementById('posts');
+const deleteModal = document.getElementById('deleteModal')
+const deleteBtn = document.getElementById('delete-btn');
 
 // =============== Toggle modal (edit / new) post ============
 // ======================================
@@ -90,4 +92,36 @@ const editPost = postObject => {
   toggleModalForms(true, postObject);
   editModal.toggle()
   editPostBtn.addEventListener('click', managePost);
+}
+
+// =============== delete post ============
+// ======================================
+const confirmDelete = id => {
+  const deleteConfirmModal = new bootstrap.Modal(deleteModal, {});
+  deleteConfirmModal.toggle();
+  const deletePost = postId => {
+
+    const formData = new FormData();
+    formData.append('_method', 'delete');
+    const url = `${baseUrl}/posts/${postId}`;
+    axios.post(url, formData, {
+      headers: {
+        'authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => {
+
+      console.log(response)
+      hideModal(deleteModal)
+      postsWrapper ? getPosts() :  window.location = `./index.html`;
+      showAlert('Your post has been deleted successfully', 'success')
+
+
+
+      
+    }).catch(e => console.log(e))
+
+  }
+  deleteBtn.addEventListener('click', () => deletePost(id))
 }

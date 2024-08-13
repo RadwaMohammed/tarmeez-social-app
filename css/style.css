@@ -339,6 +339,8 @@ li:last-of-type .dropdown-item .bi {
   background-color: #f0f4f1;
 }
 
-.post-user-control > svg {
+.post-user-control > svg , 
+h2  button svg, 
+h2  button svg {
   background-color: transparent;
 }
