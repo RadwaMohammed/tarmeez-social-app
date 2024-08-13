@@ -4,7 +4,11 @@ html {
 
 body {
   background-color: #f0f4f1;
-  
+  background-image: url('./../images/bg.svg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
 }
 
 h2 {
@@ -14,6 +18,39 @@ h2 {
 
 h3 {
   font-size: 1.5rem;
+}
+
+.nav-container {
+  position: relative;
+  margin-bottom: 10vh;
+}
+
+.nav-container .nav-link:hover, 
+.nav-container .nav-link:focus,
+.logout img, 
+.add-comment-user-img img,
+.logout a, 
+.comments button {
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+-o-border-radius: 5px;
+transition: all 0.3s ease;
+-webkit-transition: all 0.3s ease;
+-moz-transition: all 0.3s ease;
+-ms-transition: all 0.3s ease;
+-o-transition: all 0.3s ease;
+}
+.nav-container .nav-link:hover, 
+.nav-container .nav-link:focus,
+.logout a:hover, 
+.logout a:focus {
+  background-color: #eaf0eb;
+}
+.nav-container .navbar {
+  position: fixed;
+  z-index: 1000;
 }
 
 .comment{
@@ -107,6 +144,24 @@ h3 {
     align-items: start;
     justify-content: start;
   }
+
+  .nav-link {
+    padding-inline: 0.3em 5em;
+    border: 1px solid #ddd;
+    border-left: 5px solid #ddd;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
+
+  .nav-link:hover, 
+  .nav-link:focus,
+  .nav-link.active {
+    border-left: 5px solid #198754;
+  }
 }
 
 .navbar {
@@ -129,6 +184,7 @@ h3 {
 .navbar-toggler:hover {
   box-shadow: none;
   border: 1px solid #198754;
+  background-color: #eaf0eb;
 }
 
 
@@ -169,11 +225,13 @@ h3 {
 
 #add-btn-home {
   position: fixed;
-  bottom: 5vh;
-  right: 1vw;
-  line-height: 2rem;
-  padding-bottom: 0.4em;
-  padding-inline: 0.4em;
+  bottom: 4vh;
+  right: 1.5vw;
+  width: 1.6em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.6em;
 }
 
 .comment-form-group .btn:hover, 
@@ -200,12 +258,6 @@ h3 {
   max-width: 100%;
   width: 2.2rem;
   height: 2.2rem;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
 }
 
 .logout a {
@@ -215,25 +267,6 @@ h3 {
   color: #555;
   gap: 0.3rem;
   padding: 0.1em 0.7em;
-}
-
-.logout a, 
-.comments button {
-border-radius: 5px;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
--ms-border-radius: 5px;
--o-border-radius: 5px;
-transition: all 0.3s ease;
--webkit-transition: all 0.3s ease;
--moz-transition: all 0.3s ease;
--ms-transition: all 0.3s ease;
--o-transition: all 0.3s ease;
-}
-
-.logout a:hover, 
-.logout a:focus {
-  background-color: #eaf0eb;
 }
 
 .go-to-post {
