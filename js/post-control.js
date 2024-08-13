@@ -66,12 +66,12 @@ const managePost = () => {
     
 
     hideModal(addPostModal);
-    // if(!postId) {
-    //   window.scrollTo({
-    //     top: 0, 
-    //     behavior: 'smooth'
-    //   });
-    // }
+    if(!postId) {
+      window.scrollTo({
+        top: 0, 
+        behavior: 'smooth'
+      });
+    }
     showAlert(`${postId ? 'Your' : 'New'} post has been ${postId ? 'edited' : 'created'} successfully`, 'success');
   }).catch(e => showAlert(e, 'danger'))
 }
@@ -111,14 +111,12 @@ const confirmDelete = id => {
       }
     })
     .then(response => {
-
-      console.log(response)
-      hideModal(deleteModal)
-      postsWrapper ? getPosts() :  window.location = `./index.html`;
       showAlert('Your post has been deleted successfully', 'success')
-
-
-
+      setTimeout(() => {
+        hideModal(deleteModal);
+        postsWrapper ? getPosts() :  window.location = `./index.html`;
+      }, 1000)
+      
       
     }).catch(e => console.log(e))
 
