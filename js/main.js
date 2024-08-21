@@ -147,11 +147,11 @@ const showAlert = (message, type) => {
 
 // =============== get usersName list ============
 // ======================================
-let usersNameList;
-axios.get(`${baseUrl}/users`).then(response => {
-  const users = response.data.data;
-  usersNameList = users.map(user => user.username);
-})
+// let usersNameList;
+// axios.get(`${baseUrl}/users`).then(response => {
+//   const users = response.data.data;
+//   usersNameList = users.map(user => user.username);
+// })
 
 // =============== login ============
 // ======================================
@@ -167,9 +167,10 @@ loginBtn.addEventListener('click', () => {
     'username': username.value.trim(),
     'password': password.value.trim()
   };
-
+  showLoader(true);
   axios.post(`${baseUrl}/login`, params)
   .then(response => {
+    showLoader(false);
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.user));
     hideModal(loginModal);
@@ -206,6 +207,7 @@ email.addEventListener('input', () => {
 })
 
 registerBtn.addEventListener('click', () => {
+  showLoader(true);
   const formData = new FormData();
   formData.append('username', rUsername.value);
   formData.append('password', rPassword.value);
@@ -220,6 +222,7 @@ registerBtn.addEventListener('click', () => {
       'Content-Type': 'multipart/form-data'
     }
   }).then(response => {
+    showLoader(false);
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.user));
     hideModal(registerModal);
@@ -240,3 +243,11 @@ logoutBtn.addEventListener('click', () => {
   setUpLogUI();
 });
 setUpLogUI();
+
+// =============== Loaders ============
+// ======================================
+
+const showLoader = show =>  show 
+  ? document.getElementById('loader').classList.remove('hide-me') 
+  : document.getElementById('loader').classList.add('hide-me');
+

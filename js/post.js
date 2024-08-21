@@ -15,8 +15,10 @@ const user = JSON.parse(localStorage.getItem('user'));
 
  
 const getPost = () => {
+  showLoader(true);
   axios.get(`${baseUrl}/posts/${postId}`)
   .then(response => {
+    showLoader(false);
     const { 
       author, 
       comments, 
@@ -108,7 +110,7 @@ const getPost = () => {
     postHeader.innerHTML = headerContent;
     postFigure.innerHTML = figureContent;
     postFooter.innerHTML = footerContent;
-  })
+  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
 };
 
 addCommentBtn.disabled = isNotEmpty(commentBody);
@@ -117,15 +119,17 @@ addCommentBtn.addEventListener('click', () => {
   const params = {
     'body': commentBody.value.trim()
   }
+  showLoader(true);
   axios.post(`${baseUrl}/posts/${postId}/comments`, params, {
     headers: {
       'authorization': `Bearer ${localStorage.getItem('token')}`,
     }
   }).then(() => {
+    showLoader(false);
     getPost();
     showAlert('New comment has been created successfully', 'success')
 
-  }).catch(e => showAlert(`${e.response.data.message}`, 'danger'))
+  }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => showLoader(false))
 });
 getPost();
 

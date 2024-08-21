@@ -7,9 +7,10 @@ let lastPage = 1;
 // ======================================
 const goToPost = id => window.location = `./post-details.html?id=${id}`;
 const getPosts = (reload = true, page = 1) => {
-  
+  showLoader(true);
   axios.get(`${baseUrl}/posts?page=${page}`)
   .then(response => {
+    showLoader(false);
     const posts = response.data.data;
     lastPage = response.data.meta.last_page;
 
@@ -86,7 +87,7 @@ const getPosts = (reload = true, page = 1) => {
       `;
       postsContainer.innerHTML += content;
     }
-  }).catch(e => showAlert(e, 'danger'))
+  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
 };
 
 // =============== Posts Pagination ============

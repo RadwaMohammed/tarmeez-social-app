@@ -22,9 +22,10 @@ if (!id) {
 }
 
 const getUserInfo = () => {
-
+  showLoader(true);
   axios.get(`${baseUrl}/users/${id}`)
     .then(response => {
+      showLoader(false);
       const { 
         name, 
         username, 
@@ -48,14 +49,16 @@ const getUserInfo = () => {
       manageUI(userEmail, email);
       document.getElementById('user-posts-count').innerText = posts_count;
       document.getElementById('user-comments-count').innerText = comments_count;
-    }).catch(e => showAlert(e.response.data.message, 'danger'))
+    }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
 };
 
 
 
 const getUserPosts = () => {
+  showLoader(true);
   axios.get(`${baseUrl}/users/${id}/posts`)
   .then(response => {
+    showLoader(false);
     const posts = response.data.data;
     const getTags = tags => {
       let content = '';
@@ -109,9 +112,9 @@ const getUserPosts = () => {
     console.log(response.data.data)
   }).catch(e => {
     console.log(e)
-    showAlert(e, 'danger')})
+    showAlert(e, 'danger')}).finally(() => showLoader(false))
 };
 if(id) {
   getUserInfo();
-  getUserPosts()
+  getUserPosts();
 }

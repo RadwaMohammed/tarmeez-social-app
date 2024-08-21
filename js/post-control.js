@@ -41,6 +41,7 @@ document.getElementById('add-btn-home').addEventListener('click', () => toggleMo
 // ==============================================
 
 const managePost = () => {
+  showLoader(true);
   const postId = postIdHolder.value;
   const formData = new FormData();
   formData.append('title', postTitle.value.trim());
@@ -62,6 +63,7 @@ const managePost = () => {
     }
   })
   .then(response => {
+    showLoader(false);
     postsWrapper ? getPosts() : getPost()
     
 
@@ -73,7 +75,7 @@ const managePost = () => {
       });
     }
     showAlert(`${postId ? 'Your' : 'New'} post has been ${postId ? 'edited' : 'created'} successfully`, 'success');
-  }).catch(e => showAlert(e, 'danger'))
+  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
 }
   
 // =============== Add post ============
@@ -100,7 +102,7 @@ const confirmDelete = id => {
   const deleteConfirmModal = new bootstrap.Modal(deleteModal, {});
   deleteConfirmModal.toggle();
   const deletePost = postId => {
-
+    showLoader(true);
     const formData = new FormData();
     formData.append('_method', 'delete');
     const url = `${baseUrl}/posts/${postId}`;
@@ -111,6 +113,7 @@ const confirmDelete = id => {
       }
     })
     .then(response => {
+      showLoader(false);
       showAlert('Your post has been deleted successfully', 'success')
       setTimeout(() => {
         hideModal(deleteModal);
@@ -118,7 +121,7 @@ const confirmDelete = id => {
       }, 1000)
       
       
-    }).catch(e => console.log(e))
+    }).catch(e => console.log(e)).finally(() => showLoader(false))
 
   }
   deleteBtn.addEventListener('click', () => deletePost(id))
