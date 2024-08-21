@@ -59,7 +59,10 @@ const getPost = () => {
     userHeader.innerHTML = author.username;
     const userImg = `<img src="${author.profile_image}" alt="${author.name}" class="border border-1 rounded-circle">`;
     const headerContent = `<h2 class="card-header d-flex align-items-center gap-2">
-      ${author.profile_image && typeof author.profile_image === 'string'? userImg : defaultUserImg}@${author.username}
+      <div class="d-flex alig-items-center post-user-link gap-2">
+        <a class="d-inline-block" href="profile.html?id=${author.id}" title="${author.username}">${author.profile_image && typeof author.profile_image === 'string'? userImg : defaultUserImg}</a> 
+        <a class="d-inline-block" href="profile.html?id=${author.id}" title="${author.username}">${author.username}</a>
+      </div>
       <div class="${user && user.id === author.id ? 'dropdown' : 'dropdown hide-me'} post-control" data-author="${author.id}">
         <button class="post-user-control btn dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">

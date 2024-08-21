@@ -1,7 +1,7 @@
 let currentPage = 1;
 let lastPage = 1;
 // Posts Container
-const postsContainer = document.getElementById('posts');
+// const postsContainer = document.getElementById('posts');
 
 // =============== get posts ============
 // ======================================
@@ -30,10 +30,13 @@ const getPosts = (reload = true, page = 1) => {
     for(let post of posts) {
       const userImg = `<img src="${post.author.profile_image}" alt="${post.author.name}" class="border border-1 rounded-circle">`;
       const content = `
-        <article class="card my-4 shadow-sm">
+        <article class="card mt-4 shadow-sm">
         <header>
           <h2 class="card-header d-flex align-items-center gap-2">
-          ${post.author.profile_image && typeof post.author.profile_image === 'string'? userImg : defaultUserImg} ${post.author.username}
+          <div class="d-flex alig-items-center post-user-link gap-2">
+            <a class="d-inline-block" href="profile.html?id=${post.author.id}" title="${post.author.username}">${post.author.profile_image && typeof post.author.profile_image === 'string'? userImg : defaultUserImg}</a> 
+            <a class="d-inline-block" href="profile.html?id=${post.author.id}" title="${post.author.username}">${post.author.username}</a>
+          </div>
           <div class="${user && user.id === post.author.id ? 'dropdown' : 'dropdown hide-me'} post-control" data-author="${post.author.id}">
             <button class="post-user-control btn dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
@@ -83,13 +86,14 @@ const getPosts = (reload = true, page = 1) => {
       `;
       postsContainer.innerHTML += content;
     }
-  }).catch(e => showAlert(e.response.data.message, 'danger'))
+  }).catch(e => showAlert(e, 'danger'))
 };
 
 // =============== Posts Pagination ============
 // ======================================
 window.addEventListener('scroll', () => {
-  const isPageEnd = window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight;
+  // const isPageEnd = window.innerHeight + window.scrollY + 1 >= document.body.offsetHeight;
+  const isPageEnd = window.innerHeight + window.scrollY + 1 >= document.body.scrollHeight;
   if (isPageEnd && currentPage < lastPage) {
     currentPage++;
     getPosts(false, currentPage);

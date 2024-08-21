@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Info.</title>
+    <!-- Import bootstrap css -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Import bootstrap scripts -->
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js" ></script>
+    <script defer src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Import axios -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+  </head>
+  <body class="container">
+    <!-- ----------------------------------------------------------------------
+    ----------------- Nav Menue -----------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <header class="row justify-content-center d-flex nav-container" style="justify-content: space-between;">
+      <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2" >
+        <div class="container-fluid">
+          <div class="d-flex mobile-column">
+            <a class="navbar-brand fw-bold text-success" href="index.html">Tarmees</a>
+            <div>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="profile.html">Profile</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mx-2 mobile-column" style="flex-basis: 100%; justify-content: end;">
+          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal" id="login">Login</button>
+          <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#register-modal" id="register">Register</button>
+          <!-- For logged user -->
+          <div id="logout-container" class="logout mobile-column">
+            <a class="d-flex align-items-center" href="profile.html"></a> 
+            <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ----------------------------------------------------------------------
+    ----------------- Main Contents -----------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <main class="row justify-content-center mt-4">
+      <!-- ****** Post ****** -->
+      <div class="col-lg-9 profile-container pt-3">
+        <div class="card mb-3 mt-4 py-3 px-4">
+          <figure class="row user-details">
+            <div class="col-md-2 py-2 user-img d-flex justify-content-center align-items-center" id="user-img" class="user-info-img">
+            </div>
+            <figcaption class="col-md-10">
+              <div class="card-body row">
+                <ul class="col-md-7 user-personal-info">
+                  <li>
+                    <a href="" id="user-email"></a>
+                  </li>
+                  <li>
+                    <p id="user-name"></p>
+                  </li>
+                  <li>
+                    <p id="user-username" class="user-username"></p>
+                  </li>
+                </ul>
+                <ul class="col-md-5 user-records ">
+                  <li>
+                    <p><span id="user-posts-count"></span> Posts</p>
+                  </li>
+                  <li>
+                    <p><span id="user-comments-count"></span> Comments</p>
+                  </li>
+                </ul>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+        <section class="user-posts-container pb-4">
+          <h1>Posts</h1>
+          <div class="card posts-wrapper py-3">
+            <!-- <article class="card mt-4 shadow-sm">
+              <header>
+                <h2 class="card-header d-flex align-items-center gap-2">
+                  <img src="./images/profile/name.png" alt="" class="border border-1 rounded-circle">
+                  user name
+                </h2>
+              </header>
+              <div class="card-body go-to-post" onclick="">
+                <figure>
+                  <img src="./images/pxfuel.jpg" alt="" class="figure-img img-fluid card-img-top"> 
+                  <time class="text-body-tertiary fw-medium d-block mt-1">30 min ago</time>
+                  <figcaption class="mt-3">
+                    <h3 class="card-title">title title</h3>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet exercitationem quasi labore incidunt laborum fuga repudiandae necessitatibus sequi nulla libero! Corporis natus inventore debitis dicta perferendis dolorum amet, iusto animi.</p>
+                  </figcaption>
+                </figure>
+                <footer class="border-top pt-2">
+                  <div class="wrapper gap-1">
+                    <div class="comments d-flex align-items-center ">
+                        <button class="d-flex text-body-secondary fw-medium align-items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                          </svg>(2) Comments
+                        </button>
+                    </div>
+                    <ul class="tags nav gap-1">
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                    </ul>
+                  </div>
+                </footer>
+              </div>
+            </article>
+            <article class="card mt-4 shadow-sm">
+              <header>
+                <h2 class="card-header d-flex align-items-center gap-2">
+                  <img src="./images/profile/name.png" alt="" class="border border-1 rounded-circle">
+                  user name
+                </h2>
+              </header>
+              <div class="card-body go-to-post" onclick="">
+                <figure>
+                  <img src="./images/pxfuel.jpg" alt="" class="figure-img img-fluid card-img-top"> 
+                  <time class="text-body-tertiary fw-medium d-block mt-1">30 min ago</time>
+                  <figcaption class="mt-3">
+                    <h3 class="card-title">title title</h3>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet exercitationem quasi labore incidunt laborum fuga repudiandae necessitatibus sequi nulla libero! Corporis natus inventore debitis dicta perferendis dolorum amet, iusto animi.</p>
+                  </figcaption>
+                </figure>
+                <footer class="border-top pt-2">
+                  <div class="wrapper gap-1">
+                    <div class="comments d-flex align-items-center ">
+                        <button class="d-flex text-body-secondary fw-medium align-items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                          </svg>(2) Comments
+                        </button>
+                    </div>
+                    <ul class="tags nav gap-1">
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                    </ul>
+                  </div>
+                </footer>
+              </div>
+            </article>
+            <article class="card mt-4 shadow-sm">
+              <header>
+                <h2 class="card-header d-flex align-items-center gap-2">
+                  <img src="./images/profile/name.png" alt="" class="border border-1 rounded-circle">
+                  user name
+                </h2>
+              </header>
+              <div class="card-body go-to-post" onclick="">
+                <figure>
+                  <img src="./images/pxfuel.jpg" alt="" class="figure-img img-fluid card-img-top"> 
+                  <time class="text-body-tertiary fw-medium d-block mt-1">30 min ago</time>
+                  <figcaption class="mt-3">
+                    <h3 class="card-title">title title</h3>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet exercitationem quasi labore incidunt laborum fuga repudiandae necessitatibus sequi nulla libero! Corporis natus inventore debitis dicta perferendis dolorum amet, iusto animi.</p>
+                  </figcaption>
+                </figure>
+                <footer class="border-top pt-2">
+                  <div class="wrapper gap-1">
+                    <div class="comments d-flex align-items-center ">
+                        <button class="d-flex text-body-secondary fw-medium align-items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                          </svg>(2) Comments
+                        </button>
+                    </div>
+                    <ul class="tags nav gap-1">
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                      <li>
+                        <button type="button" class="btn btn-secondary bg-secondary">Secondary</button>
+                      </li>
+                    </ul>
+                  </div>
+                </footer>
+              </div>
+            </article> -->
+          </div>
+        </section>
+        
+      </div>
+      
+    </main>
+
+    <!-- ----------------------------------------------------------------------
+    ----------------- Nav Modals -----------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <!-- Login Modal  -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-body-tertiary">
+            <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Login</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="username" class="col-form-label">Username:</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">@</span>
+                  <input type="text" class="form-control is-invalid" id="username" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="col-form-label">Password:</label>
+                <input type="password"  class="form-control" id="password" tabindex="0">
+              </div>
+              <div class="invalid-feedback">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p id="invalid" class="text-danger"></p>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Modal  -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-body-tertiary">
+            <h1 class="modal-title fs-5 text-success" id="registerModalLabel">Register</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="register-img" class="col-form-label">Profile image:</label>
+                <input class="form-control" type="file" id="register-img" accept="image/png, image/jpeg, image/jpg">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="col-form-label">Name:</label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="name" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="r-username" class="col-form-label">Username:</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">@</span>
+                  <input type="text" class="form-control" id="r-username" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="col-form-label">Email:</label>
+                <div class="input-group mb-3">
+                  <input type="email" class="form-control" id="email" tabindex="0">
+                </div>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="r-password" class="col-form-label">Password:</label>
+                <input type="password"  class="form-control" id="r-password" tabindex="0">
+              </div>
+
+              <div class="invalid-feedback">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p id="invalid" class="text-danger"></p>
+            <div class="d-flex gap-2">
+              
+              <button type="button" class="btn btn-success" id="register-btn" tabindex="0">Register</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------------------------------------
+    ----------------- Alerts -----------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <!-- Alert Contianer -->
+    <div id="alert" class="d-flex fade show"></div>
+    <script src="./js/main.js"></script>
+    <script src="./js/profile.js"></script>
+
+  </body>
+</html>

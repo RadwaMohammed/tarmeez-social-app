@@ -24,7 +24,8 @@ const addComment = document.getElementById('add-comment');
 const addCommentImg = document.querySelector('.add-comment-user-img');
 // User post control
 const userPostControl = document.getElementsByClassName('post-control');
-
+// posts container
+const postsContainer = document.getElementById('posts');
 // alert container
 const alertPlaceholder = document.getElementById('alert');
 // default user profile image
@@ -71,13 +72,18 @@ const setUpLogUI = () => {
   const registerBtn = document.getElementById('register');
 
   if (token) {
+    userLink.setAttribute('title', `${user.username}`);
     userLink.innerHTML = `
-      ${ typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.name}" title="${user.name}">` : defaultUserImg }
+      ${ typeof user.profile_image === 'string' && user.profile_image.length ? `<img src="${user.profile_image}" alt="${user.name}" title="${user.name}" class="rounded-circle">` : defaultUserImg }
       <strong>${user.username}</strong>`;
     loginBtn.classList.add('hide-me');
     registerBtn.classList.add('hide-me');
     logoutContainer.classList.remove('hide-me');
-    addtBtn && addtBtn.classList.remove('hide-me');
+    console.log(postsContainer && addtBtn)
+    if (postsContainer && addtBtn ) {
+      addtBtn.classList.remove('hide-me');
+    }
+
     if (addComment) {
       addtBtn.classList.add('hide-me');
       addComment.classList.remove('hide-me');

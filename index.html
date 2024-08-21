@@ -21,7 +21,7 @@
     <header class="row justify-content-center d-flex nav-container" style="justify-content: space-between;">
       <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2" >
         <div class="container-fluid">
-          <div class="d-flex">
+          <div class="d-flex mobile-column">
             <a class="navbar-brand fw-bold text-success" href="index.html">Tarmees</a>
             <div>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,19 +33,19 @@
                     <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                    <a class="nav-link" href="profile.html">Profile</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
-        <div class="d-flex gap-2 mx-2" style="flex-basis: 100%; justify-content: end;">
+        <div class="d-flex gap-2 mx-2 mobile-column" style="flex-basis: 100%; justify-content: end;">
           <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal" id="login">Login</button>
           <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#register-modal" id="register">Register</button>
           <!-- For logged user -->
-          <div id="logout-container" class="logout">
-            <a class="d-flex align-items-center"></a> 
+          <div id="logout-container" class="logout mobile-column">
+            <a class="d-flex align-items-center" href="profile.html"></a> 
             <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
           </div>
         </div>
@@ -55,9 +55,9 @@
     <!-- ----------------------------------------------------------------------
     ----------------- Main Contents -----------------------------------------------
     ---------------------------------------------------------------------- -->
-    <main class="row justify-content-center mt-4">
+    <main class="row justify-content-center">
       <!-- ****** Posts ****** -->
-      <div id="posts" class="col-lg-9">
+      <div id="posts" class="col-lg-9 pt-3">
         <!-- <article class="card my-4 shadow-sm">
           <header>
             <h2 class="card-header d-flex align-items-center gap-2">
@@ -284,7 +284,7 @@
       ----------------- Add New Post / Edit Post -----------------------------------------------
       ---------------------------------------------------------------------- -->
       <!-- Add Post btn -->
-      <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
+      <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow add-btn-home" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
       <!-- Create new post Modal  -->
       <div class="modal fade" id="add-post-modal" data-edit="false" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -304,7 +304,7 @@
                 </div>
                 <div class="mb-3">
                   <div class="input-group mb-3">
-                    <textarea class="form-control" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
+                    <textarea class="form-control post-body" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
                   </div>
                   <div class="invalid-feedback">
                   </div>
