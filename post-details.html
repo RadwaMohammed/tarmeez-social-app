@@ -67,7 +67,7 @@
               <form class="mt-3" id="add-comment">
                 <div class="input-group comment-form-group">
                   <span class="input-group-text add-comment-user-img"></span>
-                  <textarea class="form-control" id="comment-content" placeholder="Write comment ..." aria-label="With textarea"></textarea>
+                  <textarea class="form-control" id="comment-content" placeholder="Write comment ..." aria-label="With textarea" value=""></textarea>
                   <button class="btn btn-outline-success" type="button" id="add-comment-btn">Add Comment</button>
                 </div>
               </form>
@@ -95,7 +95,7 @@
                 <label for="username" class="col-form-label">Username:</label>
                 <div class="input-group mb-3">
                   <span class="input-group-text">@</span>
-                  <input type="text" class="form-control is-invalid" id="username" tabindex="0">
+                  <input type="text" class="form-control" id="username" tabindex="0">
                 </div>
                 <div class="invalid-feedback">
                 </div>
@@ -132,13 +132,13 @@
               <div class="mb-3">
                 <label for="register-img" class="col-form-label">Profile image:</label>
                 <input class="form-control" type="file" id="register-img" accept="image/png, image/jpeg, image/jpg">
+                <div id="register-imgFeedback" class="invalid-feedback">
+                </div>
               </div>
               <div class="mb-3">
                 <label for="name" class="col-form-label">Name:</label>
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" id="name" tabindex="0">
-                </div>
-                <div class="invalid-feedback">
                 </div>
               </div>
               <div class="mb-3">
@@ -146,35 +146,30 @@
                 <div class="input-group mb-3">
                   <span class="input-group-text">@</span>
                   <input type="text" class="form-control" id="r-username" tabindex="0">
-                </div>
-                <div class="invalid-feedback">
+                  <div id="r-usernameFeedback" class="invalid-feedback">
+                  </div>
                 </div>
               </div>
               <div class="mb-3">
                 <label for="email" class="col-form-label">Email:</label>
                 <div class="input-group mb-3">
                   <input type="email" class="form-control" id="email" tabindex="0">
-                </div>
-                <div class="invalid-feedback">
+                  <div id="emailFeedback" class="invalid-feedback">
+                  </div>
                 </div>
               </div>
               <div class="mb-3">
                 <label for="r-password" class="col-form-label">Password:</label>
                 <input type="password"  class="form-control" id="r-password" tabindex="0">
-              </div>
-
-              <div class="invalid-feedback">
+                <div class="form-text" id="basic-addon4">Password must be at least 6 characters and not be greater than 40 characters with no spaces.</div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <p id="invalid" class="text-danger"></p>
             <div class="d-flex gap-2">
-              
               <button type="button" class="btn btn-success" id="register-btn" tabindex="0">Register</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
             </div>
-  
           </div>
         </div>
       </div>
@@ -212,15 +207,14 @@
               </div>
               <div class="mb-3">
                 <label for="post-img" class="form-label">Upload an image</label>
-                <input class="form-control" type="file" id="post-img" accept="image/*">
-              </div>
-              <div class="invalid-feedback">
+                <input class="form-control" type="file" id="post-img" accept="image/png, image/jpeg, image/jpg">
+                <div id="post-imgFeedback" class="invalid-feedback">
+                </div>
               </div>
               <input type="hidden" id="post-id-holder" value="">
             </form>
           </div>
           <div class="modal-footer">
-            <p id="invalid" class="text-danger"></p>
             <div class="d-flex gap-2">
               <input type="hidden" name="post-id" id="post-id-holder" value="">
               <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>

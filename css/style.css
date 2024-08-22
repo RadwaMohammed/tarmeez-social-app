@@ -115,6 +115,11 @@ transition: all 0.3s ease;
 .comments-container {
   background-color: #f0f4f1;
 }
+.comments-container li {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
 .comments-container li + li {
   border-top: 1px solid #ccc;

@@ -110,7 +110,7 @@ const getPost = () => {
     postHeader.innerHTML = headerContent;
     postFigure.innerHTML = figureContent;
     postFooter.innerHTML = footerContent;
-  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
+  }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
 };
 
 addCommentBtn.disabled = isNotEmpty(commentBody);
@@ -129,7 +129,11 @@ addCommentBtn.addEventListener('click', () => {
     getPost();
     showAlert('New comment has been created successfully', 'success')
 
-  }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => showLoader(false))
+  }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => {
+    commentBody.value = '';
+    addCommentBtn.disabled = isNotEmpty(commentBody)
+    showLoader(false)
+  })
 });
 getPost();
 

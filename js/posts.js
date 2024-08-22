@@ -87,7 +87,7 @@ const getPosts = (reload = true, page = 1) => {
       `;
       postsContainer.innerHTML += content;
     }
-  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
+  }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
 };
 
 // =============== Posts Pagination ============

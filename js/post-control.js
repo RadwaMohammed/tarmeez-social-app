@@ -18,6 +18,9 @@ const deleteBtn = document.getElementById('delete-btn');
 // =============== Toggle modal (edit / new) post ============
 // ======================================
 const toggleModalForms = (isEditPost, postObject = '') => {
+  postBody.value = '';
+  postImg.classList.remove('is-invalid')
+  addPostBtn.disabled = isNotEmpty(postBody);
   document.getElementById('addPostModalLabel').innerHTML = `${isEditPost ? 'Edit' : 'Add new'} post`;
   document.getElementById('post-img').value = '';
   if (isEditPost) {
@@ -75,12 +78,17 @@ const managePost = () => {
       });
     }
     showAlert(`${postId ? 'Your' : 'New'} post has been ${postId ? 'edited' : 'created'} successfully`, 'success');
-  }).catch(e => showAlert(e, 'danger')).finally(() => showLoader(false))
+  }).catch(e => {
+    e.response.data.errors.image ? postImg.classList.add('is-invalid') :   postImg.classList.remove('is-invalid');
+    document.getElementById('post-imgFeedback').innerText = e.response.data.errors.image.join('\n')
+    showAlert(e.response.data.message, 'danger')
+  }).finally(() => {
+    showLoader(false)
+  })
 }
   
 // =============== Add post ============
 // ======================================
-addPostBtn.disabled = isNotEmpty(postBody);
 postBody.addEventListener('input', () => {
   addPostBtn.disabled = isNotEmpty(postBody)
   editPostBtn.disabled = isNotEmpty(postBody)
@@ -121,7 +129,7 @@ const confirmDelete = id => {
       }, 1000)
       
       
-    }).catch(e => console.log(e)).finally(() => showLoader(false))
+    }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
 
   }
   deleteBtn.addEventListener('click', () => deletePost(id))

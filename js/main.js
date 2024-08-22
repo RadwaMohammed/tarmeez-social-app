@@ -33,22 +33,7 @@ const defaultUserImg = `
 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#bbb" class="bi bi-person-fill border border-1 rounded-circle" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
 </svg>`;
-// addEventListener("load", () => console.log( userPostControl))
-console.log( userPostControl)
-addEventListener("DOMContentLoaded", (event) => {
-  console.log( userPostControl)
-});
-function doSomething() {
-  console.info("DOM loaded");
-}
 
-if (document.readyState === "loading") {
-  // Loading hasn't finished yet
-  document.addEventListener("DOMContentLoaded", () =>  console.log( userPostControl));
-} else {
-  // `DOMContentLoaded` has already fired
-  doSomething();
-}
 // =============== Hide Modal ============
 // =====================================
 const hideModal = modal => {
@@ -79,11 +64,9 @@ const setUpLogUI = () => {
     loginBtn.classList.add('hide-me');
     registerBtn.classList.add('hide-me');
     logoutContainer.classList.remove('hide-me');
-    console.log(postsContainer && addtBtn)
     if (postsContainer && addtBtn ) {
       addtBtn.classList.remove('hide-me');
     }
-
     if (addComment) {
       addtBtn.classList.add('hide-me');
       addComment.classList.remove('hide-me');
@@ -111,7 +94,6 @@ const setUpLogUI = () => {
     }
   }
 }
-
 window.onload = () => setUpLogUI();
 
 // =============== Alerts ============
@@ -145,21 +127,19 @@ const showAlert = (message, type) => {
   }, 1500)
 }
 
-// =============== get usersName list ============
-// ======================================
-// let usersNameList;
-// axios.get(`${baseUrl}/users`).then(response => {
-//   const users = response.data.data;
-//   usersNameList = users.map(user => user.username);
-// })
-
 // =============== login ============
 // ======================================
-const isNotEmpty = input=> input && !input.value.trim().length;
+const isNotEmpty = input => input && !input.value.trim().length;
 // Disable login Button if user not fill inputs
 loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password);
-username.addEventListener('input', () => loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password))
-password.addEventListener('input', () => loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password))
+username.addEventListener('input', () => {
+
+  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) || password.value.trim().length < 6
+})
+password.addEventListener('input', () => {
+
+  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) || password.value.trim().length < 6
+})
 
 // Handle login form validation
 loginBtn.addEventListener('click', () => {
@@ -176,10 +156,28 @@ loginBtn.addEventListener('click', () => {
     hideModal(loginModal);
     showAlert('Logged in successfully', 'success');
     setUpLogUI();
-    // document.location.reload(true)
-  }).catch(e => showAlert(e.response.data.message, 'danger'))
+  }).catch(e => {
+      if(e.response.data.errors.password || e.response.data.errors.email) {
+        console.log(e.response.data.errors)
+        showAlert(`Invalid password or username.`, 'danger')
+        username.classList.add('is-invalid');
+        password.classList.add('is-invalid');
+        document.getElementById('invalid').innerText = 'Invalid password or username.'
+      } else {
+        showAlert(`${e.response.data.message}`, 'danger')
+        username.classList.remove('is-invalid');
+        password.classList.remove('is-invalid');
+        document.getElementById('invalid').innerText = ''
+      }
+    }).finally(() => showLoader(false))
 });
-
+loginModal.addEventListener('hidden.bs.modal', () => {
+  username.value = '';
+  password.value = '';
+  username.classList.remove('is-invalid');
+  password.classList.remove('is-invalid');
+  document.getElementById('invalid').innerText = ''
+})
 
 // =============== Register ============
 // ======================================
@@ -190,7 +188,6 @@ isAllowRegiter();
 rUsername.addEventListener('input', () => {
   isAllowRegiter();
   rUsername.value = rUsername.value.trim();
-  console.log(rUsername.value)
 })
 
 rPassword.addEventListener('input', () => {
@@ -229,9 +226,50 @@ registerBtn.addEventListener('click', () => {
     showAlert('Registered successfully', 'success');
     setUpLogUI();
     
-  }).catch(e => showAlert(e.response.data.message, 'danger'))
+  }).catch(e => {
+    console.log(e.response.data.errors)
+    if(e.response.data.errors.password) {
+      rPassword.classList.add('is-invalid');
+    } else {
+      rPassword.classList.remove('is-invalid');
+    }
+    if(e.response.data.errors.email) {
+      email.classList.add('is-invalid');
+      document.getElementById('emailFeedback').innerText = e.response.data.errors.email.join('\n')
+    } else {
+      email.classList.remove('is-invalid');
+      document.getElementById('emailFeedback').innerText = ''
+    }
+    if(e.response.data.errors.image) {
+      registerImg.classList.add('is-invalid');
+      document.getElementById('register-imgFeedback').innerText = e.response.data.errors.image.join('\n')
+    } else {
+      registerImg.classList.remove('is-invalid');
+      document.getElementById('register-imgFeedback').innerText = ''
+    }
+    if(e.response.data.errors.username) {
+      rUsername.classList.add('is-invalid');
+      document.getElementById('r-usernameFeedback').innerText = e.response.data.errors.username.join('\n')
+    } else {
+      rUsername.classList.remove('is-invalid');
+      document.getElementById('r-usernameFeedback').innerText = ''
+    }
+  }).finally(() => showLoader(false))
 });
 
+registerModal.addEventListener('hidden.bs.modal', () => {
+  rPassword.value = '';
+  rUsername.value = '';
+  rName.value = '';
+  email.value = '';
+  rPassword.classList.remove('is-invalid');
+  rUsername.classList.remove('is-invalid');
+  registerImg.classList.remove('is-invalid');
+  email.classList.remove('is-invalid');
+  document.getElementById('emailFeedback').innerText = ''
+  document.getElementById('register-imgFeedback').innerText = '';
+  document.getElementById('r-usernameFeedback').innerText = '';
+})
 
 // =============== logout ============
 // ======================================

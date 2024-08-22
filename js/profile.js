@@ -49,7 +49,7 @@ const getUserInfo = () => {
       manageUI(userEmail, email);
       document.getElementById('user-posts-count').innerText = posts_count;
       document.getElementById('user-comments-count').innerText = comments_count;
-    }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
+    }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => showLoader(false))
 };
 
 
@@ -109,10 +109,7 @@ const getUserPosts = () => {
       `;
       postsWrapper.innerHTML += content;
     }
-    console.log(response.data.data)
-  }).catch(e => {
-    console.log(e)
-    showAlert(e, 'danger')}).finally(() => showLoader(false))
+  }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => showLoader(false))
 };
 if(id) {
   getUserInfo();
