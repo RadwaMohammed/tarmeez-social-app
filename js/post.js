@@ -49,8 +49,11 @@ const getPost = () => {
         let userImg = `<img src="${profile_image}" alt="${username}" class="border border-1 rounded-circle">`;
         content += `
         <li class="p-1">
-          <h4 title="${comment.author.username}" class="comment d-flex align-items-center gap-2">
-          ${profile_image && typeof profile_image === 'string'? userImg : defaultUserImg} ${username}
+          <h4 title="${comment.author.username}" class="comment d-flex align-items-center gap-2 post-user-link">
+            <a class="d-inline-block" href="profile.html?id=${comment.author.id}" title="${username}">
+            ${profile_image && typeof profile_image === 'string'? userImg : defaultUserImg}
+            </a> 
+            <a class="d-inline-block" href="profile.html?id=${comment.author.id}" title="${username}">${username}</a>
           </h4>
           <p class="p-2">${comment.body}</p>
         </li>`;
