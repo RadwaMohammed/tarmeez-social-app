@@ -158,7 +158,6 @@ loginBtn.addEventListener('click', () => {
     setUpLogUI();
   }).catch(e => {
       if(e.response.data.errors.password || e.response.data.errors.email) {
-        console.log(e.response.data.errors)
         showAlert(`Invalid password or username.`, 'danger')
         username.classList.add('is-invalid');
         password.classList.add('is-invalid');
@@ -227,7 +226,6 @@ registerBtn.addEventListener('click', () => {
     setUpLogUI();
     
   }).catch(e => {
-    console.log(e.response.data.errors)
     if(e.response.data.errors.password) {
       rPassword.classList.add('is-invalid');
     } else {

@@ -1,7 +1,5 @@
 let currentPage = 1;
 let lastPage = 1;
-// Posts Container
-// const postsContainer = document.getElementById('posts');
 
 // =============== get posts ============
 // ======================================
