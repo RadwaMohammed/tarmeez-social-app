@@ -79,7 +79,7 @@ const managePost = () => {
     }
     showAlert(`${postId ? 'Your' : 'New'} post has been ${postId ? 'edited' : 'created'} successfully`, 'success');
   }).catch(e => {
-    e.response.data.errors.image ? postImg.classList.add('is-invalid') :   postImg.classList.remove('is-invalid');
+    e.response.data.errors.image ? postImg.classList.add('is-invalid') :  postImg.classList.remove('is-invalid');
     document.getElementById('post-imgFeedback').innerText = e.response.data.errors.image.join('\n')
     showAlert(e.response.data.message, 'danger')
   }).finally(() => {
@@ -93,6 +93,8 @@ postBody.addEventListener('input', () => {
   addPostBtn.disabled = isNotEmpty(postBody)
   editPostBtn.disabled = isNotEmpty(postBody)
 })
+
+postImg.addEventListener('input', () => postImg.classList.remove('is-invalid'))
 addPostBtn.addEventListener('click', managePost);
 
 // =============== Edit post ============

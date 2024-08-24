@@ -134,11 +134,10 @@ const isNotEmpty = input => input && !input.value.trim().length;
 loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password);
 username.addEventListener('input', () => {
 
-  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) || password.value.trim().length < 6
+  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) 
 })
 password.addEventListener('input', () => {
-
-  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) || password.value.trim().length < 6
+  loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) 
 })
 
 // Handle login form validation
@@ -177,7 +176,10 @@ loginModal.addEventListener('hidden.bs.modal', () => {
   password.classList.remove('is-invalid');
   document.getElementById('invalid').innerText = ''
 })
-
+loginModal.addEventListener('input', e => {
+  e.target.classList.remove('is-invalid')
+  document.getElementById('invalid').innerText = ''
+})
 // =============== Register ============
 // ======================================
 // Disable register button if user not fill inputs
@@ -252,6 +254,7 @@ registerBtn.addEventListener('click', () => {
       rUsername.classList.remove('is-invalid');
       document.getElementById('r-usernameFeedback').innerText = ''
     }
+    showAlert(`${e.response.data.message}`, 'danger')
   }).finally(() => showLoader(false))
 });
 
@@ -268,7 +271,7 @@ registerModal.addEventListener('hidden.bs.modal', () => {
   document.getElementById('register-imgFeedback').innerText = '';
   document.getElementById('r-usernameFeedback').innerText = '';
 })
-
+registerModal.addEventListener('input', e => e.target.classList.remove('is-invalid'))
 // =============== logout ============
 // ======================================
 logoutBtn.addEventListener('click', () => {
