@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tarmeez</title>
     <!-- Import bootstrap css -->
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -22,7 +22,7 @@
       <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2" >
         <div class="container-fluid">
           <div class="d-flex mobile-column">
-            <a class="navbar-brand fw-bold text-success" href="index.html">Tarmees</a>
+            <a class="navbar-brand fw-bold text-success" href="index.html">Tarmeez</a>
             <div>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -53,14 +53,14 @@
     </header>
 
     <!-- ----------------------------------------------------------------------
-    ----------------- Main Contents -----------------------------------------------
+    ----------------- Main Contents --------------------------------------------
     ---------------------------------------------------------------------- -->
     <main class="row justify-content-center">
       <!-- ****** Posts ****** -->
       <div id="posts" class="col-lg-9 pt-3">
       </div>
     </main>
-    
+
     <!-- ----------------------------------------------------------------------
     ----------------- Nav Modals -----------------------------------------------
     ---------------------------------------------------------------------- -->
@@ -90,10 +90,9 @@
           <div class="modal-footer">
             <p id="invalid" class="text-danger"></p>
             <div class="d-flex gap-2">
-              <button type="button" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
+              <button type="submit" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
             </div>
-
           </div>
         </div>
       </div>
@@ -155,89 +154,111 @@
       </div>
     </div>
 
-      <!-- ----------------------------------------------------------------------
-      ----------------- Add New Post / Edit Post -----------------------------------------------
-      ---------------------------------------------------------------------- -->
-      <!-- Add Post btn -->
-      <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow add-btn-home" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
-      <!-- Create new post Modal  -->
-      <div class="modal fade" id="add-post-modal" data-edit="false" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header bg-body-tertiary">
-              <h1 class="modal-title fs-5 text-success" id="addPostModalLabel">Add new post</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0" value="">
-                  </div>
+    <!-- ----------------------------------------------------------------------
+    ----------------- Add New Post / Edit Post Modal ---------------------------
+    ---------------------------------------------------------------------- -->
+    <!-- Add Post btn -->
+    <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow add-btn-home" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
+    <!-- Create new post Modal  -->
+    <div class="modal fade" id="add-post-modal" data-edit="false" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-body-tertiary">
+            <h1 class="modal-title fs-5 text-success" id="addPostModalLabel">Add new post</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" id="post-title" placeholder="Title..." tabindex="0" value="">
                 </div>
-                <div class="mb-3">
-                  <div class="input-group mb-3">
-                    <textarea class="form-control post-body" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="post-img" class="form-label">Upload an image</label>
-                  <input class="form-control" type="file" id="post-img" accept="image/png, image/jpeg, image/jpg">
-                  <div id="post-imgFeedback" class="invalid-feedback">
-                  </div>
-                </div>
-                <input type="hidden" id="post-id-holder" value="">
-              </form>
-            </div>
-            <div class="modal-footer">
-              <div class="d-flex gap-2">
-                <input type="hidden" name="post-id" id="post-id-holder" value="">
-                <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>
-                <button type="button" class="btn btn-success hide-me" id="edit-post-btn" tabindex="0">Edit Post</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
               </div>
-    
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ----------------------------------------------------------------------
-      ----------------- Confirm delete -----------------------------------------------
-      ---------------------------------------------------------------------- -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeletePost" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="deleteModalTitle">Delete Post?</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
-            </div>
-            <div class="modal-body">
-              <p>
-                Are you sure you want to delete this post? 
-              </p>
-            </div>
-            <div class="modal-footer d-flex justify-content-end">
-              <button type="button" class="btn btn-danger" id="delete-btn">Delete</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ----------------------------------------------------------------------
-      ----------------- Alerts -----------------------------------------------
-      ---------------------------------------------------------------------- -->
-      <!-- Alert Contianer -->
-      <div id="alert" class="d-flex fade show"></div>
+              <!-- <div class="mb-3">
+                <div class="input-group mb-3 gap-2  align-items-center tags-group">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                    <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+                    <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+                  </svg>
+                  <div class="btn-group gap-1 flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" value="sports">
+                    <label class="btn btn-outline-success rounded-2" for="btncheck1">sports</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" value="policy">
+                    <label class="btn btn-outline-success rounded-2" for="btncheck2">policy</label>
+                  
+                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off" value="economy">
+                    <label class="btn btn-outline-success rounded-2" for="btncheck3">economy</label>
 
-      <!-- ----------------------------------------------------------------------
-      -----------------Loader -----------------------------------------------
-      ---------------------------------------------------------------------- -->
-      <div class="lds" id="loader">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" value="entertainment">
+                    <label class="btn btn-outline-success rounded-2" for="btncheck4">entertainment</label>
+                  </div>
+                </div>
+              </div> -->
+              <div class="mb-3">
+                <div class="input-group mb-3">
+                  <textarea class="form-control post-body" placeholder="Add a post..." id="post-body" tabindex="0" value=""></textarea>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="post-img" class="form-label">Upload an image</label>
+                <input class="form-control" type="file" id="post-img" accept="image/png, image/jpeg, image/jpg">
+                <div id="post-imgFeedback" class="invalid-feedback">
+                </div>
+              </div>
+              <input type="hidden" id="post-id-holder" value="">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="d-flex gap-2">
+              <input type="hidden" name="post-id" id="post-id-holder" value="">
+              <button type="button" class="btn btn-success" id="add-post-btn" tabindex="0">Add Post</button>
+              <button type="button" class="btn btn-success hide-me" id="edit-post-btn" tabindex="0">Edit Post</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-      <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> -->
-<script src="./js/main.js"></script>
+    
+    <!-- ----------------------------------------------------------------------
+    ----------------- Confirm delete modal ---------------------------------------
+    ---------------------------------------------------------------------- -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeletePost" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="deleteModalTitle">Delete Post?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you want to delete this post? 
+            </p>
+          </div>
+          <div class="modal-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-danger" id="delete-btn">Delete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------
+    ----------------- Alerts -------------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <!-- Alert Contianer -->
+    <div id="alert" class="d-flex fade show"></div>
+
+    <!-- -------------------------------------------------------------------
+    -----------------Loader -------------------------------------------------
+    ---------------------------------------------------------------------- -->
+    <div class="lds" id="loader">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    
+    <script src="./js/main.js"></script>
     <script src="./js/posts.js"></script>
     <script src="./js/post-control.js"></script>
   </body>

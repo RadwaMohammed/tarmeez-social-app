@@ -52,8 +52,6 @@ const getUserInfo = () => {
     }).catch(e => showAlert(`${e.response.data.message}`, 'danger')).finally(() => showLoader(false))
 };
 
-
-
 const getUserPosts = () => {
   showLoader(true);
   axios.get(`${baseUrl}/users/${id}/posts`)

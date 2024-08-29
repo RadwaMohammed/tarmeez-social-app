@@ -140,6 +140,13 @@ password.addEventListener('input', () => {
   loginBtn.disabled = isNotEmpty(username) || isNotEmpty(password) 
 })
 
+if(loginBtn.disabled) {
+  loginModal.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+      loginBtn.click();
+    }
+  });
+}
 // Handle login form validation
 loginBtn.addEventListener('click', () => {
   const params = {
@@ -169,13 +176,16 @@ loginBtn.addEventListener('click', () => {
       }
     }).finally(() => showLoader(false))
 });
+
 loginModal.addEventListener('hidden.bs.modal', () => {
   username.value = '';
   password.value = '';
+  loginBtn.disabled = true;
   username.classList.remove('is-invalid');
   password.classList.remove('is-invalid');
   document.getElementById('invalid').innerText = ''
 })
+
 loginModal.addEventListener('input', e => {
   e.target.classList.remove('is-invalid')
   document.getElementById('invalid').innerText = ''
@@ -183,7 +193,6 @@ loginModal.addEventListener('input', e => {
 // =============== Register ============
 // ======================================
 // Disable register button if user not fill inputs
-
 const isAllowRegiter = () => registerBtn.disabled = isNotEmpty(rUsername) || isNotEmpty(rPassword) || isNotEmpty(rName) || isNotEmpty(email);
 isAllowRegiter();
 rUsername.addEventListener('input', () => {
@@ -263,6 +272,7 @@ registerModal.addEventListener('hidden.bs.modal', () => {
   rUsername.value = '';
   rName.value = '';
   email.value = '';
+  registerBtn.disabled = true;
   rPassword.classList.remove('is-invalid');
   rUsername.classList.remove('is-invalid');
   registerImg.classList.remove('is-invalid');
@@ -272,6 +282,7 @@ registerModal.addEventListener('hidden.bs.modal', () => {
   document.getElementById('r-usernameFeedback').innerText = '';
 })
 registerModal.addEventListener('input', e => e.target.classList.remove('is-invalid'))
+
 // =============== logout ============
 // ======================================
 logoutBtn.addEventListener('click', () => {

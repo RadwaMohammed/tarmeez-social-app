@@ -30,7 +30,7 @@ const getPost = () => {
       comments_count,
       id
     } = response.data.data;
-    console.log(response.data.data)
+
     const getTags = tags => {
       let content = '';
       for (let tag of tags) {

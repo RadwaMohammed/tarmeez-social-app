@@ -52,7 +52,7 @@
     </header>
 
     <!-- ----------------------------------------------------------------------
-    ----------------- Main Contents -----------------------------------------------
+    ----------------- Main Contents --------------------------------------------
     ---------------------------------------------------------------------- -->
     <main class="row justify-content-center mt-4">
       <!-- ****** Post ****** -->
@@ -75,10 +75,9 @@
           </div>
         </article>
       </div>
-      
     </main>
 
-    <!-- ----------------------------------------------------------------------
+    <!-- -------------------------------------------------------------------
     ----------------- Nav Modals -----------------------------------------------
     ---------------------------------------------------------------------- -->
     <!-- Login Modal  -->
@@ -174,10 +173,9 @@
         </div>
       </div>
     </div>
-    
 
     <!-- ----------------------------------------------------------------------
-    ----------------- Add New Post / Edit Post -----------------------------------------------
+    ----------------- Add New Post / Edit Post modal ---------------------------
     ---------------------------------------------------------------------- -->
     <!-- Add Post btn -->
     <button type="button" class="btn btn-success bg-success rounded-circle fw-bold fs-2 shadow add-btn-home hide-me" id="add-btn-home" data-bs-toggle="modal" data-bs-target="#add-post-modal">+</button>
@@ -217,51 +215,50 @@
               <button type="button" class="btn btn-success hide-me" id="edit-post-btn" tabindex="0">Edit Post</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
             </div>
-  
           </div>
         </div>
       </div>
     </div>
 
-     <!-- ----------------------------------------------------------------------
-      ----------------- Confirm delete -----------------------------------------------
-      ---------------------------------------------------------------------- -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeletePost" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger" id="deleteModalTitle">Delete Post?</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
-            </div>
-            <div class="modal-body">
-              <p>
-                Are you sure you want to delete this post? 
-              </p>
-            </div>
-            <div class="modal-footer d-flex justify-content-end">
-              <button type="button" class="btn btn-danger" id="delete-btn">Delete</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            </div>
+    <!-- ----------------------------------------------------------------------
+    ----------------- Confirm delete modal -------------------------------------
+    ---------------------------------------------------------------------- -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeletePost" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-danger" id="deleteModalTitle">Delete Post?</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you want to delete this post? 
+            </p>
+          </div>
+          <div class="modal-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-danger" id="delete-btn">Delete</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
           </div>
         </div>
       </div>
-    <!-- ----------------------------------------------------------------------
-    ----------------- Alerts -----------------------------------------------
+    </div>
+    
+    <!-- -------------------------------------------------------------------
+    ----------------- Alerts ------------------------------------------------
     ---------------------------------------------------------------------- -->
     <!-- Alert Contianer -->
     <div id="alert" class="d-flex fade show"></div>
 
-    <!-- ----------------------------------------------------------------------
-    -----------------Loader -----------------------------------------------
+    <!-- --------------------------------------------------------------------
+    -----------------Loader -------------------------------------------------
     ---------------------------------------------------------------------- -->
     <div class="lds" id="loader">
       <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
     </div>
+
+
     <script src="./js/main.js"></script>
-
-
     <script src="./js/post.js"></script>
     <script src="./js/post-control.js"></script>
-
   </body>
 </html>

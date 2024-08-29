@@ -15,6 +15,8 @@ const postsWrapper = document.getElementById('posts');
 const deleteModal = document.getElementById('deleteModal')
 const deleteBtn = document.getElementById('delete-btn');
 
+const checkBtnTags = document.querySelectorAll('.btn-check')
+
 // =============== Toggle modal (edit / new) post ============
 // ======================================
 const toggleModalForms = (isEditPost, postObject = '') => {
@@ -47,8 +49,42 @@ const managePost = () => {
   showLoader(true);
   const postId = postIdHolder.value;
   const formData = new FormData();
+
+  // ///////////////////////////////////////////////////////////////////////////////
+  const tags =[
+    {
+      name: "sports",
+      arabic_name: "رياضة",
+      description: "everything about sports"
+    },
+    {
+      name: "policy",
+      arabic_name: "سياسة",
+      description: "everything about policy"
+    },
+    {
+      name: "economy",
+      arabic_name: "اقتصاد",
+      description: "everything about economy"
+    },
+    {
+      name: "entertainment",
+      arabic_name: "ترفيه",
+      description: "everything about entertainment"
+    }
+  ];
+
+  // formData.append('tags', JSON.stringify([...tags]))
+
+ tags.forEach((item, index) => {
+      formData.append(`tags[${index}]`, JSON.stringify(item));
+  });
+  // console.log(...formData)
+
+  // //////////////////////////////////////////////////////////////////////////////////////
   formData.append('title', postTitle.value.trim());
   formData.append('body', postBody.value.trim());
+
   // make add image to a post not required
   if (postImg.files[0]) {
     formData.append('image', postImg.files[0]);
@@ -59,6 +95,8 @@ const managePost = () => {
     // and because of using formData
     formData.append('_method', 'put');
   }
+
+  formData.entries
   axios.post(url, formData, {
     headers: {
       'authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -66,10 +104,9 @@ const managePost = () => {
     }
   })
   .then(response => {
+
     showLoader(false);
     postsWrapper ? getPosts() : getPost()
-    
-
     hideModal(addPostModal);
     if(!postId) {
       window.scrollTo({
@@ -80,7 +117,7 @@ const managePost = () => {
     showAlert(`${postId ? 'Your' : 'New'} post has been ${postId ? 'edited' : 'created'} successfully`, 'success');
   }).catch(e => {
     e.response.data.errors.image ? postImg.classList.add('is-invalid') :  postImg.classList.remove('is-invalid');
-    document.getElementById('post-imgFeedback').innerText = e.response.data.errors.image.join('\n')
+    document.getElementById('post-imgFeedback').innerText = e.response.data.errors.image ? e.response.data.errors.image.join('\n') : ''
     showAlert(e.response.data.message, 'danger')
   }).finally(() => {
     showLoader(false)
@@ -115,8 +152,7 @@ const confirmDelete = id => {
     showLoader(true);
     const formData = new FormData();
     formData.append('_method', 'delete');
-    const url = `${baseUrl}/posts/${postId}`;
-    axios.post(url, formData, {
+    axios.post(`${baseUrl}/posts/${postId}`, formData, {
       headers: {
         'authorization': `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'multipart/form-data'
@@ -124,15 +160,14 @@ const confirmDelete = id => {
     })
     .then(response => {
       showLoader(false);
+      hideModal(deleteModal);
       showAlert('Your post has been deleted successfully', 'success')
       setTimeout(() => {
-        hideModal(deleteModal);
-        postsWrapper ? getPosts() :  window.location = `./index.html`;
-      }, 1000)
+        window.location = `./index.html`;
+      }, 700)
       
-      
-    }).catch(e => showAlert(e.response.data.message, 'danger')).finally(() => showLoader(false))
-
+    }).catch(e => {
+      showAlert(e.response.data.message, 'danger')}).finally(() => showLoader(false))
   }
   deleteBtn.addEventListener('click', () => deletePost(id))
 }
