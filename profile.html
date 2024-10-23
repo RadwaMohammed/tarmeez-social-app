@@ -1,211 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Info.</title>
-    <!-- Import bootstrap css -->
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap-icons///font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <!-- Import bootstrap scripts -->
-    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js" ></script>
-    <script defer src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Import axios -->
-    <script src="./node_modules/axios/dist/axios.min.js"></script>
-  </head>
-  <body class="container">
-    <!-- ----------------------------------------------------------------------
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Info.</title>
+  <!-- Import bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- <link rel="stylesheet" href="./node_modules/bootstrap-icons///font/bootstrap-icons.min.css"> -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+    integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="container">
+  <!-- ----------------------------------------------------------------------
     ----------------- Nav Menue -----------------------------------------------
     ---------------------------------------------------------------------- -->
-    <header class="row justify-content-center d-flex nav-container" style="justify-content: space-between;">
-      <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2" >
-        <div class="container-fluid">
-          <div class="d-flex mobile-column">
-            <a class="navbar-brand fw-bold text-success" href="index.html">Tarmees</a>
-            <div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="profile.html">Profile</a>
-                  </li>
-                </ul>
-              </div>
+  <header class="row justify-content-center d-flex nav-container" style="justify-content: space-between;">
+    <nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm rounded-bottom pt-3 col-lg-9 pb-2">
+      <div class="container-fluid">
+        <div class="d-flex mobile-column">
+          <a class="navbar-brand fw-bold text-success" href="index.html">Tarmees</a>
+          <div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="profile.html">Profile</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="d-flex gap-2 mx-2 mobile-column" style="flex-basis: 100%; justify-content: end;">
-          <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal" id="login">Login</button>
-          <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#register-modal" id="register">Register</button>
-          <!-- For logged user -->
-          <div id="logout-container" class="logout mobile-column">
-            <a class="d-flex align-items-center" href="profile.html"></a> 
-            <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
-          </div>
+      </div>
+      <div class="d-flex gap-2 mx-2 mobile-column" style="flex-basis: 100%; justify-content: end;">
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-modal"
+          id="login">Login</button>
+        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#register-modal"
+          id="register">Register</button>
+        <!-- For logged user -->
+        <div id="logout-container" class="logout mobile-column">
+          <a class="d-flex align-items-center" href="profile.html"></a>
+          <button type="button" class="btn btn-outline-danger" id="logout">Logout</button>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
+  </header>
 
-    <!-- ----------------------------------------------------------------------
+  <!-- ----------------------------------------------------------------------
     ----------------- Main Contents --------------------------------------------
     ---------------------------------------------------------------------- -->
-    <main class="row justify-content-center mt-4">
-      <!-- ****** Post ****** -->
-      <div class="col-lg-9 profile-container pt-3">
-        <div class="card mb-3 mt-4 py-3 px-4">
-          <figure class="row user-details">
-            <div class="col-md-2 py-2 user-img d-flex justify-content-center align-items-center" id="user-img" class="user-info-img">
-            </div>
-            <figcaption class="col-md-10">
-              <div class="card-body row">
-                <ul class="col-md-7 user-personal-info">
-                  <li>
-                    <a href="" id="user-email"></a>
-                  </li>
-                  <li>
-                    <p id="user-name"></p>
-                  </li>
-                  <li>
-                    <p id="user-username" class="user-username"></p>
-                  </li>
-                </ul>
-                <ul class="col-md-5 user-records ">
-                  <li>
-                    <p><span id="user-posts-count"></span> Posts</p>
-                  </li>
-                  <li>
-                    <p><span id="user-comments-count"></span> Comments</p>
-                  </li>
-                </ul>
-              </div>
-            </figcaption>
-          </figure>
-        </div>
-        <section class="user-posts-container pb-4">
-          <h1>Posts</h1>
-          <div class="card posts-wrapper py-3">
+  <main class="row justify-content-center mt-4">
+    <!-- ****** Post ****** -->
+    <div class="col-lg-9 profile-container pt-3">
+      <div class="card mb-3 mt-4 py-3 px-4">
+        <figure class="row user-details">
+          <div class="col-md-2 py-2 user-img d-flex justify-content-center align-items-center" id="user-img"
+            class="user-info-img">
           </div>
-        </section>
+          <figcaption class="col-md-10">
+            <div class="card-body row">
+              <ul class="col-md-7 user-personal-info">
+                <li>
+                  <a href="" id="user-email"></a>
+                </li>
+                <li>
+                  <p id="user-name"></p>
+                </li>
+                <li>
+                  <p id="user-username" class="user-username"></p>
+                </li>
+              </ul>
+              <ul class="col-md-5 user-records ">
+                <li>
+                  <p><span id="user-posts-count"></span> Posts</p>
+                </li>
+                <li>
+                  <p><span id="user-comments-count"></span> Comments</p>
+                </li>
+              </ul>
+            </div>
+          </figcaption>
+        </figure>
       </div>
-    </main>
+      <section class="user-posts-container pb-4">
+        <h1>Posts</h1>
+        <div class="card posts-wrapper py-3">
+        </div>
+      </section>
+    </div>
+  </main>
 
-    <!-- ----------------------------------------------------------------------
+  <!-- ----------------------------------------------------------------------
     ----------------- Nav Modals -----------------------------------------------
     ---------------------------------------------------------------------- -->
-    <!-- Login Modal  -->
-    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-body-tertiary">
-            <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Login</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="username" class="col-form-label">Username:</label>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">@</span>
-                  <input type="text" class="form-control" id="username" tabindex="0">
-                </div>
-                <div class="invalid-feedback">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="password" class="col-form-label">Password:</label>
-                <input type="password"  class="form-control" id="password" tabindex="0">
+  <!-- Login Modal  -->
+  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-body-tertiary">
+          <h1 class="modal-title fs-5 text-success" id="loginModalLabel">Login</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="username" class="col-form-label">Username:</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" tabindex="0">
               </div>
               <div class="invalid-feedback">
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <p id="invalid" class="text-danger"></p>
-            <div class="d-flex gap-2">
-              <button type="button" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
             </div>
+            <div class="mb-3">
+              <label for="password" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password" tabindex="0">
+            </div>
+            <div class="invalid-feedback">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <p id="invalid" class="text-danger"></p>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-success" id="login-btn" tabindex="0">Login</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Register Modal  -->
-    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-body-tertiary">
-            <h1 class="modal-title fs-5 text-success" id="registerModalLabel">Register</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="register-img" class="col-form-label">Profile image:</label>
-                <input class="form-control" type="file" id="register-img" accept="image/png, image/jpeg, image/jpg">
-                <div id="register-imgFeedback" class="invalid-feedback">
-                </div>
+  <!-- Register Modal  -->
+  <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-body-tertiary">
+          <h1 class="modal-title fs-5 text-success" id="registerModalLabel">Register</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="register-img" class="col-form-label">Profile image:</label>
+              <input class="form-control" type="file" id="register-img" accept="image/png, image/jpeg, image/jpg">
+              <div id="register-imgFeedback" class="invalid-feedback">
               </div>
-              <div class="mb-3">
-                <label for="name" class="col-form-label">Name:</label>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="name" tabindex="0">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="r-username" class="col-form-label">Username:</label>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">@</span>
-                  <input type="text" class="form-control" id="r-username" tabindex="0">
-                  <div id="r-usernameFeedback" class="invalid-feedback">
-                  </div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="col-form-label">Email:</label>
-                <div class="input-group mb-3">
-                  <input type="email" class="form-control" id="email" tabindex="0">
-                  <div id="emailFeedback" class="invalid-feedback">
-                  </div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="r-password" class="col-form-label">Password:</label>
-                <input type="password"  class="form-control" id="r-password" tabindex="0">
-                <div class="form-text" id="basic-addon4">Password must be at least 6 characters and not be greater than 40 characters with no spaces.</div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <div class="d-flex gap-2">
-              <button type="button" class="btn btn-success" id="register-btn" tabindex="0">Register</button>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
             </div>
+            <div class="mb-3">
+              <label for="name" class="col-form-label">Name:</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="name" tabindex="0">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="r-username" class="col-form-label">Username:</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="r-username" tabindex="0">
+                <div id="r-usernameFeedback" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="col-form-label">Email:</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control" id="email" tabindex="0">
+                <div id="emailFeedback" class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="r-password" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="r-password" tabindex="0">
+              <div class="form-text" id="basic-addon4">Password must be at least 6 characters and not be greater than 40
+                characters with no spaces.</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-success" id="register-btn" tabindex="0">Register</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" tabindex="0">Close</button>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ----------------------------------------------------------------------
+  <!-- ----------------------------------------------------------------------
     ----------------- Alerts -----------------------------------------------
     ---------------------------------------------------------------------- -->
-    <!-- Alert Contianer -->
-    <div id="alert" class="d-flex fade show"></div>
+  <!-- Alert Contianer -->
+  <div id="alert" class="d-flex fade show"></div>
 
-    <!-- ----------------------------------------------------------------------
+  <!-- ----------------------------------------------------------------------
     -----------------Loader -----------------------------------------------
     ---------------------------------------------------------------------- -->
-    <div class="lds" id="loader">
-      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+  <div class="lds" id="loader">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
+  </div>
 
-    <script src="./js/main.js"></script>
-    <script src="./js/profile.js"></script>
-  </body>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/profile.js"></script>
+</body>
+
 </html>
